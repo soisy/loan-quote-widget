@@ -1,8 +1,10 @@
-version: "3.5"
+version: "3.8"
 services:
   web:
     container_name: loan-quote-widget
-    build: ./
+    build:
+      context: ../
+      dockerfile: .docker/Dockerfile
     volumes: 
         - ..:/loan-quote-widget
     ports:
