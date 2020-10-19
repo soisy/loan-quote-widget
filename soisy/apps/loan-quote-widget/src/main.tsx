@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './app/app';
+import SoisyLoanQuoteWidget from './app/widget';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const soisyLoanQuotesWidgets = document.getElementsByTagName('soisy-loan-quote');
+
+for (let i = 0; i < soisyLoanQuotesWidgets.length; i++) {
+  ReactDOM.render(
+    <React.StrictMode>
+      <SoisyLoanQuoteWidget />
+    </React.StrictMode>,
+    soisyLoanQuotesWidgets[i]   
+  );
+}
