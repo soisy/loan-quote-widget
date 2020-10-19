@@ -2,13 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>LoanQuoteWidget</title>
+    <title>SoisyLoanQuote</title>
     <base href="/" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
   </head>
   <body>
-    <div class="soisy-loan-quote-widget"></div>
+    <soisy-loan-quote
+      amount='1200'
+      zero-interest-rate="0"
+      selected-installments="20"
+      min-installments="3"
+      max-installments="30"
+      ></soisy-loan-quote>
+    <soisy-loan-quote
+      amount='2000'
+      zero-interest-rate="1"
+      selected-installments="20"
+      min-installments="3"
+      max-installments="60"
+      ></soisy-loan-quote>
   </body>
 </html>

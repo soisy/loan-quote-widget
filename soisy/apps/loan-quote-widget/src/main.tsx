@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './app/app';
+import SoisyLoanQuoteWidget from './app/widget';
 
-const soisyLoanQuotesWidgets = document.getElementsByClassName('soisy-loan-quote-widget');
+const soisyLoanQuotesWidgets = document.getElementsByTagName('soisy-loan-quote');
 
 for (let i = 0; i < soisyLoanQuotesWidgets.length; i++) {
   ReactDOM.render(
     <React.StrictMode>
-      <App />
+      <SoisyLoanQuoteWidget />
     </React.StrictMode>,
     soisyLoanQuotesWidgets[i]   
   );
