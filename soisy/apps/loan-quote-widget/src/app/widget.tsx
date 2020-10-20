@@ -5,12 +5,19 @@ import styled from 'styled-components';
 const StyledApp = styled.div`
 `;
 
-export const SoisyLoanQuoteWidget = () => {
-  return (
-    <StyledApp>
-      ciao
-    </StyledApp>
-  );
+class SoisyLoanQuoteWidget extends React.Component<any, any> {
+    render () {
+        return (
+            <StyledApp>
+                {this.props.shopId} <br/>
+                {this.props.amount} <br/>
+                {this.props.installments} <br/>
+                {this.props.minInstallments} <br/>
+                {this.props.maxInstallments} <br/>
+                {this.props.zeroInterestRate} <br/>
+            </StyledApp>
+        );
+    }
 };
 
 export default SoisyLoanQuoteWidget;
