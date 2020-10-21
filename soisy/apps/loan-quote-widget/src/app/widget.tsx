@@ -7,6 +7,11 @@ const StyledApp = styled.div`
 
 class SoisyLoanQuoteWidget extends React.Component<any, any> {
     render () {
+
+        if (!this.props.shopId) {
+            return (<p>shopId parameter is invalid.</p>);
+        }
+
         return (
             <StyledApp>
                 {this.props.shopId} <br/>
