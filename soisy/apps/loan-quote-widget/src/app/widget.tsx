@@ -31,6 +31,10 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             return (<p>amount parameter is not set.</p>);
         }
 
+        if (!this.state.isShopActive) {
+            return (<p>shopId is not active.</p>);
+        }
+
         return (
             <StyledApp>
                 {this.props.shopId} <br/>
