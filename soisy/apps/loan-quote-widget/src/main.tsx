@@ -9,9 +9,9 @@ for (let i = 0; i < soisyLoanQuotesWidgets.length; i++) {
     const widgetConfig = {
         shopId: soisyLoanQuotesWidgets[i].attributes['shop-id'] ? soisyLoanQuotesWidgets[i].attributes['shop-id'].value : null,
         amount: soisyLoanQuotesWidgets[i].attributes['amount'] ? soisyLoanQuotesWidgets[i].attributes['amount'].value : null,
-        installments: soisyLoanQuotesWidgets[i].attributes['installments'] ? soisyLoanQuotesWidgets[i].attributes['installments'].value : null,
-        minInstallments: soisyLoanQuotesWidgets[i].attributes['min-installments'] ? soisyLoanQuotesWidgets[i].attributes['min-installments'].value : null,
-        maxInstallments: soisyLoanQuotesWidgets[i].attributes['max-installments'] ? soisyLoanQuotesWidgets[i].attributes['max-installments'].value : null,
+        instalments: soisyLoanQuotesWidgets[i].attributes['instalments'] ? soisyLoanQuotesWidgets[i].attributes['instalments'].value : null,
+        minInstalments: soisyLoanQuotesWidgets[i].attributes['min-instalments'] ? soisyLoanQuotesWidgets[i].attributes['min-instalments'].value : null,
+        maxInstalments: soisyLoanQuotesWidgets[i].attributes['max-instalments'] ? soisyLoanQuotesWidgets[i].attributes['max-instalments'].value : null,
         zeroInterestRate: soisyLoanQuotesWidgets[i].attributes['zero-interest-rate'] ? soisyLoanQuotesWidgets[i].attributes['zero-interest-rate'].value : null,
     };
 
@@ -20,9 +20,9 @@ for (let i = 0; i < soisyLoanQuotesWidgets.length; i++) {
             <SoisyLoanQuoteWidget
                 shopId={widgetConfig.shopId}
                 amount={widgetConfig.amount}
-                installments={widgetConfig.installments}
-                minInstallments={widgetConfig.minInstallments}
-                maxInstallments={widgetConfig.maxInstallments}
+                instalments={widgetConfig.instalments}
+                minInstalments={widgetConfig.minInstalments}
+                maxInstalments={widgetConfig.maxInstalments}
                 zeroInterestRate={widgetConfig.zeroInterestRate}
             />
         </React.StrictMode>,
