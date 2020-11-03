@@ -11,15 +11,17 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             return;
         }
 
-        const shop = this.getShop();
-        if (!shop) {
-            return;
-        }
+        fetch('https://api.sandbox.soisy.it/api/shops/' + this.props.shopId)
+            .then(res => res.json())
+            .then(shop => {
+                console.log(shop);
+                this.setState({
+                    isShopActive: shop.active,
+                    maxInstalments: shop.maxInstalmentsNumber
+                })
+            });
 
-        this.setState({
-            isShopActive: shop.active,
-            maxInstalments: shop.maxInstalmentsNumber
-        });
+        ;
     }
 
     render () {
@@ -31,6 +33,10 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             return (<p>amount parameter is not set.</p>);
         }
 
+        if (!this.state) {
+            return (<span />);
+        }
+
         if (!this.state.isShopActive) {
             return (<p>shopId is not active.</p>);
         }
@@ -40,20 +46,9 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
                 {this.props.shopId} <br/>
                 {this.props.amount} <br/>
                 {this.props.instalments} <br/>
-                {this.props.minInstalments} <br/>
-                {this.props.maxInstalments} <br/>
                 {this.props.zeroInterestRate} <br/>
             </StyledApp>
         );
-    }
-
-    async getShop() {
-        try {
-            const response = await fetch('https://api.sandbox.soisy.it/api/shops/' + this.props.shopId);
-            return await response.json();
-        } catch (e) {
-            return undefined;
-        }
     }
 };
 
