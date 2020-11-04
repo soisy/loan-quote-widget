@@ -51,6 +51,5 @@ function mockFetchResponse(response) {
 function asyncAssert(condition) {
     setTimeout(() => {
         expect(condition).toBeTruthy();
-        done();
     }, 200);
 }
