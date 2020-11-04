@@ -17,4 +17,5 @@ jobs:
 
       - name: Run tests
         run: |
+            cd .docker
             docker-compose exec web nx test
