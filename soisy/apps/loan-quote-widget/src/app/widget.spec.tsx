@@ -1,6 +1,9 @@
 import React from 'react';
-import {render} from '@testing-library/react';
 import SoisyLoanQuoteWidget from './widget';
+import { configure, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
 
 describe('SoisyLoanQuoteWidget', () => {
     beforeEach(() => {
@@ -8,35 +11,34 @@ describe('SoisyLoanQuoteWidget', () => {
     })
 
     it('should show an error if no shopId is provided', async () => {
-        const {getByText} = render(<SoisyLoanQuoteWidget />);
+        const widget = shallow(<SoisyLoanQuoteWidget />);
 
-        expect(getByText('shopId parameter is invalid.')).toBeTruthy();
+        expect(widget.contains('shopId parameter is invalid.')).toBeTruthy();
     });
 
     it('should show an error if no amount is set', async () => {
-        const {getByText} = render(<SoisyLoanQuoteWidget shopId="partnershop" />);
+        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" />);
         expect(window.fetch).toHaveBeenCalledWith('https://api.sandbox.soisy.it/api/shops/partnershop');
         expect(window.fetch).toHaveBeenCalledTimes(1);
 
-        expect(getByText('amount parameter is not set.')).toBeTruthy();
+        expect(widget.contains('amount parameter is not set.')).toBeTruthy();
     });
 
     it('should show nothing if no state is set', async () => {
-        const widget = render(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" />);
+        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" />);
         expect(window.fetch).toHaveBeenCalledWith('https://api.sandbox.soisy.it/api/shops/partnershop');
         expect(window.fetch).toHaveBeenCalledTimes(1);
 
-        expect(widget.baseElement.innerHTML).toContain("<span></span>");
+        expect(widget.contains(<span />)).toBeTruthy();
     });
 
     it('should show an error if shopId is not active', async () => {
         mockFetchResponse({active: false});
-
-        const {getByText} = render(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" />);
+        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" />);
         expect(window.fetch).toHaveBeenCalledWith('https://api.sandbox.soisy.it/api/shops/partnershop');
         expect(window.fetch).toHaveBeenCalledTimes(1);
 
-        expect(getByText('shopId is not active.')).toBeTruthy();
+        asyncAssert(widget.contains('shopId is not active.'));
     });
 });
 
@@ -45,3 +47,10 @@ function mockFetchResponse(response) {
         json: () => Promise.resolve(response),
     }));
 };
+
+function asyncAssert(condition) {
+    setTimeout(() => {
+        expect(condition).toBeTruthy();
+        done();
+    }, 200);
+}

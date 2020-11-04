@@ -14,17 +14,14 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
         fetch('https://api.sandbox.soisy.it/api/shops/' + this.props.shopId)
             .then(res => res.json())
             .then(shop => {
-                console.log(shop);
                 this.setState({
                     isShopActive: shop.active,
                     maxInstalments: shop.maxInstalmentsNumber
                 })
             });
-
-        ;
     }
 
-    render () {
+    render() {
         if (!this.props.shopId) {
             return (<p>shopId parameter is invalid.</p>);
         }
@@ -34,7 +31,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
         }
 
         if (!this.state) {
-            return (<span />);
+            return (<span/>);
         }
 
         if (!this.state.isShopActive) {
