@@ -5,37 +5,39 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
+const defaultShopId = 'partnershop';
+
 describe('SoisyLoanQuoteWidget', () => {
     beforeEach(() => {
         mockFetchResponse({});
     })
 
-    it('should show an error if no shopId is provided', async () => {
+    it('shows an error if no shopId is provided', async () => {
         const widget = shallow(<SoisyLoanQuoteWidget />);
 
         expect(widget.contains('shopId parameter is invalid.')).toBeTruthy();
     });
 
-    it('should show an error if no amount is set', async () => {
+    it('shows an error if no amount is set', async () => {
         const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" />);
-        expect(window.fetch).toHaveBeenCalledWith('https://api.sandbox.soisy.it/api/shops/partnershop');
+        expect(window.fetch).toHaveBeenCalledWith(process.env.BASE_URL + '/shops/' + defaultShopId);
         expect(window.fetch).toHaveBeenCalledTimes(1);
 
         expect(widget.contains('amount parameter is not set.')).toBeTruthy();
     });
 
-    it('should show nothing if no state is set', async () => {
+    it('shows nothing if no state is set', async () => {
         const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" />);
-        expect(window.fetch).toHaveBeenCalledWith('https://api.sandbox.soisy.it/api/shops/partnershop');
+        expect(window.fetch).toHaveBeenCalledWith(process.env.BASE_URL + '/shops/' + defaultShopId);
         expect(window.fetch).toHaveBeenCalledTimes(1);
 
         expect(widget.contains(<span />)).toBeTruthy();
     });
 
-    it('should show an error if shopId is not active', async () => {
+    it('shows an error if shopId is not active', async () => {
         mockFetchResponse({active: false});
         const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" />);
-        expect(window.fetch).toHaveBeenCalledWith('https://api.sandbox.soisy.it/api/shops/partnershop');
+        expect(window.fetch).toHaveBeenCalledWith(process.env.BASE_URL + '/shops/' + defaultShopId);
         expect(window.fetch).toHaveBeenCalledTimes(1);
 
         asyncAssert(widget.contains('shopId is not active.'));

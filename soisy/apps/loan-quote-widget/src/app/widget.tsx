@@ -11,11 +11,12 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             return;
         }
 
-        fetch('https://api.sandbox.soisy.it/api/shops/' + this.props.shopId)
+        fetch(process.env.BASE_URL + '/shops/' + this.props.shopId)
             .then(res => res.json())
             .then(shop => {
                 this.setState({
                     isShopActive: shop.active,
+                    zeroInterestRate: shop.zeroInterestRate,
                     maxInstalments: shop.maxInstalmentsNumber
                 })
             });
