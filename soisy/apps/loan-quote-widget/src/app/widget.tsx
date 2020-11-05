@@ -1,5 +1,5 @@
 import React from 'react';
-
+import LoanQuoteWidgetConfig from '../../loan-quote-widget.config';
 import styled from 'styled-components';
 
 const StyledApp = styled.div`
@@ -11,7 +11,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             return;
         }
 
-        fetch(process.env.BASE_URL + '/shops/' + this.props.shopId)
+        fetch(LoanQuoteWidgetConfig.API_URL + '/shops/' + this.props.shopId)
             .then(res => res.json())
             .then(shop => {
                 this.setState({
@@ -43,6 +43,12 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             return (<p>instalments parameter is greater than shopId's maximum of {this.state.maxInstalmentsNumber}</p>);
         }
 
+        // fetch(process.env.BASE_URL + '/shops/' + this.props.shopId + '/loan-quote?amount=120000&instalments=6&zeroInterestRate=false')
+        //     .then(res => res.json())
+        //     .then(shop => {
+        //
+        //     });
+
         return (
             <StyledApp>
                 {this.props.shopId} <br/>
@@ -51,6 +57,10 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
                 {this.props.zeroInterestRate} <br/>
             </StyledApp>
         );
+    }
+
+    async getLoanQuoteBy(amount: number) {
+        return 0;
     }
 };
 
