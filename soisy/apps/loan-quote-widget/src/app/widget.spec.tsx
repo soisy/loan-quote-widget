@@ -37,8 +37,6 @@ describe('SoisyLoanQuoteWidget', () => {
     it('shows an error if shopId is not active', async () => {
         mockFetchResponse({active: false});
         const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" />);
-        expect(window.fetch).toHaveBeenCalledWith(process.env.BASE_URL + '/shops/' + defaultShopId);
-        expect(window.fetch).toHaveBeenCalledTimes(1);
 
         setImmediate(() => {
             widget.update();
@@ -49,12 +47,30 @@ describe('SoisyLoanQuoteWidget', () => {
     it('shows an error if selected instalments are greater than maxInstalments', async () => {
         mockFetchResponse({active: true, maxInstalmentsNumber: 12});
         const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={13}/>);
-        expect(window.fetch).toHaveBeenCalledWith(process.env.BASE_URL + '/shops/' + defaultShopId);
-        expect(window.fetch).toHaveBeenCalledTimes(1);
 
         setImmediate(() => {
             widget.update();
             expect(widget.text()).toEqual('instalments parameter is greater than shopId\'s maximum of 12');
+        });
+    });
+
+    it('use widget\'s zero interest rate if set', async () => {
+        mockFetchResponse({active: true, maxInstalmentsNumber: 12});
+        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={6} zeroInterestRate={true}/>);
+
+        setImmediate(() => {
+            widget.update();
+            expect(widget.instance().state.zeroInterestRate).toBe(true);
+        });
+    });
+
+    it('use shops\'s zero interest rate if widget\'s is not set', async () => {
+        mockFetchResponse({active: true, maxInstalmentsNumber: 12, zeroInterestRate: true}});
+        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={6}/>);
+
+        setImmediate(() => {
+            widget.update();
+            expect(widget.instance().state.zeroInterestRate).toBe(true);
         });
     });
 });

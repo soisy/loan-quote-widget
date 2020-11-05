@@ -16,7 +16,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             .then(shop => {
                 this.setState({
                     isShopActive: shop.active,
-                    zeroInterestRate: shop.zeroInterestRate,
+                    zeroInterestRate: this.props.zeroInterestRate ?? shop.zeroInterestRate,
                     maxInstalmentsNumber: shop.maxInstalmentsNumber
                 })
             });
