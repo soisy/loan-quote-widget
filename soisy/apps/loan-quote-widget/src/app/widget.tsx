@@ -17,7 +17,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
                 this.setState({
                     isShopActive: shop.active,
                     zeroInterestRate: shop.zeroInterestRate,
-                    maxInstalments: shop.maxInstalmentsNumber
+                    maxInstalmentsNumber: shop.maxInstalmentsNumber
                 })
             });
     }
@@ -37,6 +37,10 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
 
         if (!this.state.isShopActive) {
             return (<p>shopId is not active.</p>);
+        }
+
+        if (this.props.instalments > this.state.maxInstalmentsNumber) {
+            return (<p>instalments parameter is greater than shopId's maximum of {this.state.maxInstalmentsNumber}</p>);
         }
 
         return (

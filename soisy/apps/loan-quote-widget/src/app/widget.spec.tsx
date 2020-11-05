@@ -15,7 +15,7 @@ describe('SoisyLoanQuoteWidget', () => {
     it('shows an error if no shopId is provided', async () => {
         const widget = shallow(<SoisyLoanQuoteWidget />);
 
-        expect(widget.contains('shopId parameter is invalid.')).toBeTruthy();
+        expect(widget.text()).toEqual('shopId parameter is invalid.');
     });
 
     it('shows an error if no amount is set', async () => {
@@ -23,7 +23,7 @@ describe('SoisyLoanQuoteWidget', () => {
         expect(window.fetch).toHaveBeenCalledWith(process.env.BASE_URL + '/shops/' + defaultShopId);
         expect(window.fetch).toHaveBeenCalledTimes(1);
 
-        expect(widget.contains('amount parameter is not set.')).toBeTruthy();
+        expect(widget.text()).toEqual('amount parameter is not set.');
     });
 
     it('shows nothing if no state is set', async () => {
@@ -31,7 +31,7 @@ describe('SoisyLoanQuoteWidget', () => {
         expect(window.fetch).toHaveBeenCalledWith(process.env.BASE_URL + '/shops/' + defaultShopId);
         expect(window.fetch).toHaveBeenCalledTimes(1);
 
-        expect(widget.contains(<span />)).toBeTruthy();
+        expect(widget.html()).toEqual("<span></span>");
     });
 
     it('shows an error if shopId is not active', async () => {
@@ -40,7 +40,22 @@ describe('SoisyLoanQuoteWidget', () => {
         expect(window.fetch).toHaveBeenCalledWith(process.env.BASE_URL + '/shops/' + defaultShopId);
         expect(window.fetch).toHaveBeenCalledTimes(1);
 
-        asyncAssert(widget.contains('shopId is not active.'));
+        setImmediate(() => {
+            widget.update();
+            expect(widget.text()).toEqual('shopId is not active.');
+        });
+    });
+
+    it('shows an error if selected instalments are greater than maxInstalments', async () => {
+        mockFetchResponse({active: true, maxInstalmentsNumber: 12});
+        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={13}/>);
+        expect(window.fetch).toHaveBeenCalledWith(process.env.BASE_URL + '/shops/' + defaultShopId);
+        expect(window.fetch).toHaveBeenCalledTimes(1);
+
+        setImmediate(() => {
+            widget.update();
+            expect(widget.text()).toEqual('instalments parameter is greater than shopId\'s maximum of 12');
+        });
     });
 });
 
@@ -48,10 +63,4 @@ function mockFetchResponse(response) {
     window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
         json: () => Promise.resolve(response),
     }));
-};
-
-function asyncAssert(condition) {
-    setTimeout(() => {
-        expect(condition).toBeTruthy();
-    }, 200);
 }

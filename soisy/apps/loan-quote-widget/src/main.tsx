@@ -11,7 +11,7 @@ for (let i = 0; i < soisyLoanQuotesWidgets.length; i++) {
         amount: soisyLoanQuotesWidgets[i].attributes['amount'] ? soisyLoanQuotesWidgets[i].attributes['amount'].value : null,
         instalments: soisyLoanQuotesWidgets[i].attributes['instalments'] ? soisyLoanQuotesWidgets[i].attributes['instalments'].value : null,
         minInstalments: soisyLoanQuotesWidgets[i].attributes['min-instalments'] ? soisyLoanQuotesWidgets[i].attributes['min-instalments'].value : null,
-        maxInstalments: soisyLoanQuotesWidgets[i].attributes['max-instalments'] ? soisyLoanQuotesWidgets[i].attributes['max-instalments'].value : null,
+        maxInstalmentsNumber: soisyLoanQuotesWidgets[i].attributes['max-instalments'] ? soisyLoanQuotesWidgets[i].attributes['max-instalments'].value : null,
         zeroInterestRate: soisyLoanQuotesWidgets[i].attributes['zero-interest-rate'] ? soisyLoanQuotesWidgets[i].attributes['zero-interest-rate'].value : null,
     };
 
@@ -22,7 +22,7 @@ for (let i = 0; i < soisyLoanQuotesWidgets.length; i++) {
                 amount={widgetConfig.amount}
                 instalments={widgetConfig.instalments}
                 minInstalments={widgetConfig.minInstalments}
-                maxInstalments={widgetConfig.maxInstalments}
+                maxInstalments={widgetConfig.maxInstalmentsNumber}
                 zeroInterestRate={widgetConfig.zeroInterestRate}
             />
         </React.StrictMode>,
