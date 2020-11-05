@@ -65,7 +65,7 @@ describe('SoisyLoanQuoteWidget', () => {
     });
 
     it('use shops\'s zero interest rate if widget\'s is not set', async () => {
-        mockFetchResponse({active: true, maxInstalmentsNumber: 12, zeroInterestRate: true}});
+        mockFetchResponse({active: true, maxInstalmentsNumber: 12, zeroInterestRate: true});
         const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={6}/>);
 
         setImmediate(() => {
