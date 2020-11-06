@@ -41,8 +41,18 @@ describe('SoisyLoanQuoteWidget', () => {
         });
     });
 
+    it('converts amount to eurocents', async () => {
+        const widget = shallow(<SoisyLoanQuoteWidget />);
+        expect(widget.instance().amountToEurocents(12.34)).toBe(1234);
+    });
+
+    it('converts eurocents to amount', async () => {
+        const widget = shallow(<SoisyLoanQuoteWidget />);
+        expect(widget.instance().eurocentsToAmount(1234)).toBe(12.34);
+    });
+
     it('prefers widget\'s zeroInterestRate over shop\'s one', async () => {
-        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={6} zeroInterestRate={true}/>);
+        const widget = shallow(<SoisyLoanQuoteWidget zeroInterestRate={true}/>);
         expect(widget.instance().whichZeroInterestRate({zeroInterestRate: false})).toBe(true);
     });
 
@@ -51,22 +61,7 @@ describe('SoisyLoanQuoteWidget', () => {
         expect(widget.instance().whichZeroInterestRate({zeroInterestRate: false})).toBe(false);
     });
 
-    // it('use shops\'s zero interest rate if widget\'s is not set', async () => {
-    //     window.fetch = jest.fn()
-    //         .mockImplementationOnce(() => Promise.resolve({
-    //             json: () => Promise.resolve({active: true, maxInstalmentsNumber: 12, zeroInterestRate: true}),
-    //         }))
-    //         .mockImplementationOnce(() => Promise.resolve({
-    //             json: () => Promise.resolve({"min":{"fee":2496,"interest":1973,"interestRate":5.5,"totalRepaid":124469,"apr":13.42,"instalmentAmount":20745},"median":{"fee":2196,"interest":2328,"interestRate":6.5,"totalRepaid":124524,"apr":13.59,"instalmentAmount":20754},"max":{"fee":12,"interest":4947,"interestRate":14,"totalRepaid":124959,"apr":14.97,"instalmentAmount":20827}}),
-    //         }));
-    //
-    //     const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={6} zeroInterestRate={false}/>);
-    //
-    //     setImmediate(() => {
-    //         widget.update();
-    //         expect(widget.text()).toContain('per 6 mesi con Soisy');
-    //     });
-    // });
+
 });
 
 function mockGetShopResponse(widget, response: object) {

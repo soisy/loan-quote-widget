@@ -16,11 +16,15 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             return;
         }
 
-        const loanQuote = await this.getLoanQuote(this.props.amount * 100, this.props.instalments, this.whichZeroInterestRate(shop));
+        const loanQuote = await this.getLoanQuote(
+            this.amountToEurocents(this.props.amount),
+            this.props.instalments,
+            this.whichZeroInterestRate(shop)
+        );
 
         this.setState({
             isShopActive: shop.active,
-            zeroInterestRate: this.props.zeroInterestRate ?? shop.zeroInterestRate,
+            zeroInterestRate: this.whichZeroInterestRate(shop),
             maxInstalmentsNumber: shop.maxInstalmentsNumber,
             loanQuoteAmount: loanQuote.median.instalmentAmount
         });
@@ -71,8 +75,16 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             });
     }
 
-    whichZeroInterestRate(shop) {
+    whichZeroInterestRate(shop): boolean {
         return this.props.zeroInterestRate ?? shop.zeroInterestRate
+    }
+
+    amountToEurocents(amount: number): number {
+        return amount * 100;
+    }
+
+    eurocentsToAmount(eurocents: number): number {
+        return eurocents / 100;
     }
 }
 
