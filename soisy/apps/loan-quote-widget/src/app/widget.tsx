@@ -6,20 +6,24 @@ const StyledApp = styled.div`
 `;
 
 class SoisyLoanQuoteWidget extends React.Component<any, any> {
-    componentDidMount() {
+    async componentDidMount() {
         if (!this.props.shopId) {
             return;
         }
 
-        fetch(LoanQuoteWidgetConfig.API_URL + '/shops/' + this.props.shopId)
-            .then(res => res.json())
-            .then(shop => {
-                this.setState({
-                    isShopActive: shop.active,
-                    zeroInterestRate: this.props.zeroInterestRate ?? shop.zeroInterestRate,
-                    maxInstalmentsNumber: shop.maxInstalmentsNumber
-                })
-            });
+        const shop = await this.getShop(this.props.shopId);
+        if (!shop.active) {
+            return;
+        }
+
+        const loanQuote = await this.getLoanQuote(this.props.amount * 100, this.props.instalments, this.props.zeroInterestRate ?? shop.zeroInterestRate);
+
+        this.setState({
+            isShopActive: shop.active,
+            zeroInterestRate: this.props.zeroInterestRate ?? shop.zeroInterestRate,
+            maxInstalmentsNumber: shop.maxInstalmentsNumber,
+            loanQuoteAmount: loanQuote.median.instalmentAmount
+        });
     }
 
     render() {
@@ -43,25 +47,33 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             return (<p>instalments parameter is greater than shopId's maximum of {this.state.maxInstalmentsNumber}</p>);
         }
 
-        // fetch(process.env.BASE_URL + '/shops/' + this.props.shopId + '/loan-quote?amount=120000&instalments=6&zeroInterestRate=false')
-        //     .then(res => res.json())
-        //     .then(shop => {
-        //
-        //     });
+        if (!this.state.price) {
+            return (<span/>);
+        }
 
         return (
             <StyledApp>
-                {this.props.shopId} <br/>
-                {this.props.amount} <br/>
-                {this.props.instalments} <br/>
-                {this.props.zeroInterestRate} <br/>
+                € {this.state.loanQuoteAmount} per {this.props.instalments} con Soisy
             </StyledApp>
         );
     }
 
-    async getLoanQuoteBy(amount: number) {
-        return 0;
+    async getShop(shopId: string) {
+        return fetch(LoanQuoteWidgetConfig.API_URL + '/shops/' + this.props.shopId)
+            .then(res => res.json())
+            .then(shop => {
+                return shop
+            });
     }
-};
+
+
+    async getLoanQuote(amount: number, instalmentsNumber: number, zeroInterestRate: boolean) {
+        return fetch(LoanQuoteWidgetConfig.API_URL + '/shops/' + this.props.shopId + '/loan-quotes?amount='+amount+'&instalments='+instalmentsNumber+'&zeroInterestRate='+zeroInterestRate)
+            .then(res => res.json())
+            .then(quote => {
+                return quote;
+            });
+    }
+}
 
 export default SoisyLoanQuoteWidget;
