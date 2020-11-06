@@ -16,7 +16,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             return;
         }
 
-        const loanQuote = await this.getLoanQuote(this.props.amount * 100, this.props.instalments, this.props.zeroInterestRate ?? shop.zeroInterestRate);
+        const loanQuote = await this.getLoanQuote(this.props.amount * 100, this.props.instalments, this.whichZeroInterestRate(shop));
 
         this.setState({
             isShopActive: shop.active,
@@ -47,10 +47,6 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             return (<p>instalments parameter is greater than shopId's maximum of {this.state.maxInstalmentsNumber}</p>);
         }
 
-        if (!this.state.price) {
-            return (<span/>);
-        }
-
         return (
             <StyledApp>
                 € {this.state.loanQuoteAmount} per {this.props.instalments} con Soisy
@@ -73,6 +69,10 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             .then(quote => {
                 return quote;
             });
+    }
+
+    whichZeroInterestRate(shop) {
+        return this.props.zeroInterestRate ?? shop.zeroInterestRate
     }
 }
 

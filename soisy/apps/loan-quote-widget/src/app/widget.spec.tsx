@@ -41,30 +41,14 @@ describe('SoisyLoanQuoteWidget', () => {
         });
     });
 
-    it('use widget\'s zero interest rate if set', async () => {
+    it('prefers widget\'s zeroInterestRate over shop\'s one', async () => {
         const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={6} zeroInterestRate={true}/>);
-
-        const shopMock = mockGetShopResponse(widget, {active: true, maxInstalmentsNumber: 12, zeroInterestRate: false});
-        const loanQuoteMock = mockLoanQuoteResponse(widget, {median: {instalmentsAmount: 20}});
-        await widget.instance().componentDidMount();
-        expect(shopMock).toBeCalledWith("partnershop");
-        expect(shopMock).toReturnWith({active: true, maxInstalmentsNumber: 12, zeroInterestRate: false});
-        expect(loanQuoteMock).toBeCalledWith(120000, 6, true);
-        expect(loanQuoteMock).toReturnWith({median: {instalmentsAmount: 20}});
-
-        setImmediate(() => {
-            widget.update();
-            expect(widget.instance().state.zeroInterestRate).toBe(true);
-        });
+        expect(widget.instance().whichZeroInterestRate({zeroInterestRate: false})).toBe(true);
     });
 
-
-    it('shows nothing if monthly price is not set', async () => {
-        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={6}/>);
-        widget.setState({isShopActive: true, maxInstalmentsNumber: 12, zeroInterestRate: true}, () => {
-            expect(widget.instance().state.price).toBe(undefined);
-            expect(widget.html()).toEqual("<span></span>");
-        });
+    it('fallbacks on shop\'s zeroInterestRate if widget\'s one is not set', async () => {
+        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={6} />);
+        expect(widget.instance().whichZeroInterestRate({zeroInterestRate: false})).toBe(false);
     });
 
     // it('use shops\'s zero interest rate if widget\'s is not set', async () => {
@@ -97,4 +81,14 @@ function mockLoanQuoteResponse(widget, response: object) {
     getLoanQuote.mockReturnValue(response);
     widget.instance().getLoanQuote = getLoanQuote;
     return getLoanQuote;
+}
+
+async function mockComponentDidMount(widget, shopId, getShopResponse, getLoanQuoteParams, getLoanQuoteResponse) {
+    const shopMock = mockGetShopResponse(widget, getShopResponse);
+    const loanQuoteMock = mockLoanQuoteResponse(widget, getLoanQuoteResponse);
+    await widget.instance().componentDidMount();
+    expect(shopMock).toBeCalledWith(shopId);
+    expect(shopMock).toReturnWith(getShopResponse);
+    expect(loanQuoteMock).toBeCalledWith(getLoanQuoteParams.amount, getLoanQuoteParams.instalments, getLoanQuoteParams.zeroInterestRate);
+    expect(loanQuoteMock).toReturnWith(getLoanQuoteResponse);
 }
