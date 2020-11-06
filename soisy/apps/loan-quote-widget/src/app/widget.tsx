@@ -1,9 +1,8 @@
 import React from 'react';
 import LoanQuoteWidgetConfig from '../../loan-quote-widget.config';
+import QuoteSentence from './sentence';
+import { SentenceLogo } from './logo';
 import styled from 'styled-components';
-
-const StyledApp = styled.div`
-`;
 
 class SoisyLoanQuoteWidget extends React.Component<any, any> {
     async componentDidMount() {
@@ -56,9 +55,13 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
         }
 
         return (
-            <StyledApp>
-                € {this.state.loanQuoteAmount} per {this.props.instalments} con Soisy
-            </StyledApp>
+            <div>
+                <QuoteSentence
+                    amount={this.state.loanQuoteAmount}
+                    instalments={this.props.instalments}
+                    zeroInterestRate={this.state.zeroInterestRate} />
+                <SentenceLogo />
+            </div>
         );
     }
 
@@ -80,7 +83,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
     }
 
     whichZeroInterestRate(shop): boolean {
-        return this.props.zeroInterestRate ?? shop.zeroInterestRate
+        return this.getBool(this.props.zeroInterestRate ?? shop.zeroInterestRate);
     }
 
     amountToEurocents(amount: number): number {
@@ -89,6 +92,21 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
 
     eurocentsToAmount(eurocents: number): number {
         return eurocents / 100;
+    }
+
+    getBool(param: any): boolean {
+        switch (param) {
+            case true:
+            case 1:
+            case '1':
+            case 'true':
+            case 'on':
+            case 'yes':
+                return true;
+
+            default:
+                return false;
+        }
     }
 }
 

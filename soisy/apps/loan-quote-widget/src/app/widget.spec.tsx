@@ -4,7 +4,7 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
-describe('SoisyLoanQuoteWidget', () => {
+describe('Soisy Loan Quote Widget', () => {
     beforeEach(() => {
         window.fetch = jest.fn().mockImplementation(() => Promise.resolve({
             json: () => Promise.resolve({}),
@@ -55,17 +55,52 @@ describe('SoisyLoanQuoteWidget', () => {
         expect(widget.instance().eurocentsToAmount(1234)).toBe(12.34);
     });
 
+    it('converts numbers and string to correct boolean value', async () => {
+        const widget = shallow(<SoisyLoanQuoteWidget/>);
+
+        expect(widget.instance().getBool(0)).toBe(false);
+        expect(widget.instance().getBool("0")).toBe(false);
+
+        expect(widget.instance().getBool(1)).toBe(true);
+        expect(widget.instance().getBool("1")).toBe(true);
+        expect(widget.instance().getBool("true")).toBe(true);
+        expect(widget.instance().getBool("on")).toBe(true);
+        expect(widget.instance().getBool("yes")).toBe(true);
+    });
+
     it('prefers widget\'s zeroInterestRate over shop\'s one', async () => {
-        const widget = shallow(<SoisyLoanQuoteWidget zeroInterestRate={true}/>);
+        let widget = shallow(<SoisyLoanQuoteWidget zeroInterestRate={true}/>);
         expect(widget.instance().whichZeroInterestRate({zeroInterestRate: false})).toBe(true);
+
+        widget = shallow(<SoisyLoanQuoteWidget zeroInterestRate="1"/>);
+        expect(widget.instance().whichZeroInterestRate({zeroInterestRate: false})).toBe(true);
+
+        widget = shallow(<SoisyLoanQuoteWidget zeroInterestRate="0"/>);
+        expect(widget.instance().whichZeroInterestRate({zeroInterestRate: true})).toBe(false);
     });
 
     it('fallbacks on shop\'s zeroInterestRate if widget\'s one is not set', async () => {
-        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={6} />);
+        const widget = shallow(<SoisyLoanQuoteWidget />);
         expect(widget.instance().whichZeroInterestRate({zeroInterestRate: false})).toBe(false);
     });
 
+    it('renders all subcomponents correctly', async () => {
+        const widget = shallow(
+            <SoisyLoanQuoteWidget
+                shopId="partnershop"
+                amount={1200}
+                instalments={12} />
+         );
 
+         widget.setState({
+             isShopActive: true,
+             maxInstalmentsNumber: 24,
+             loanQuoteAmount: 6600,
+             zeroInterestRate: false
+         }, () => {
+             expect(widget.text()).toEqual('<QuoteSentence /><SentenceLogo />');
+        });
+    });
 });
 
 function mockGetShopResponse(widget, response: object) {
