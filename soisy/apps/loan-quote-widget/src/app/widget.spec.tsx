@@ -2,7 +2,6 @@ import React from 'react';
 import SoisyLoanQuoteWidget from './widget';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import {ShallowRenderer} from "react-dom/test-utils";
 configure({ adapter: new Adapter() });
 
 describe('SoisyLoanQuoteWidget', () => {
@@ -22,19 +21,24 @@ describe('SoisyLoanQuoteWidget', () => {
         expect(widget.text()).toEqual('amount parameter is not set.');
     });
 
-    it('shows nothing if no state is set', async () => {
+    it('shows an error if instalments parameter is not set', async () => {
         const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" />);
+        expect(widget.text()).toEqual('instalments parameter is not set.');
+    });
+
+    it('shows nothing if state is not set yet', async () => {
+        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={3}/>);
         expect(widget.html()).toEqual("<span></span>");
     });
 
     it('shows an error if shopId is not active', async () => {
-        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" />);
+        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={3} />);
         widget.setState({isShopActive: false}, () => {
             expect(widget.text()).toEqual('shopId is not active.');
         })
     });
 
-    it('shows an error if selected instalments are greater than maxInstalments', async () => {
+    it('shows an error if widget\'s instalments are greater than shop\'s maxInstalments', async () => {
         const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={13}/>);
         widget.setState({isShopActive: true, maxInstalmentsNumber: 12}, () => {
             expect(widget.text()).toEqual('instalments parameter is greater than shopId\'s maximum of 12');

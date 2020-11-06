@@ -39,6 +39,10 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             return (<p>amount parameter is not set.</p>);
         }
 
+        if (!this.props.instalments) {
+            return (<p>instalments parameter is not set.</p>);
+        }
+
         if (!this.state) {
             return (<span/>);
         }
