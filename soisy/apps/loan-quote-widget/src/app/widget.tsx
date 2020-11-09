@@ -2,7 +2,6 @@ import React from 'react';
 import LoanQuoteWidgetConfig from '../../loan-quote-widget.config';
 import QuoteSentence from './sentence';
 import { SentenceLogo } from './logo';
-import styled from 'styled-components';
 
 class SoisyLoanQuoteWidget extends React.Component<any, any> {
     async componentDidMount() {

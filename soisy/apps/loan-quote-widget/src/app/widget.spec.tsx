@@ -1,6 +1,6 @@
 import React from 'react';
 import SoisyLoanQuoteWidget from './widget';
-import { configure, shallow } from 'enzyme';
+import { configure, shallow, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
@@ -84,7 +84,7 @@ describe('Soisy Loan Quote Widget', () => {
         expect(widget.instance().whichZeroInterestRate({zeroInterestRate: false})).toBe(false);
     });
 
-    it('renders all subcomponents correctly', async () => {
+    it('shallowly renders all subcomponents correctly', async () => {
         const widget = shallow(
             <SoisyLoanQuoteWidget
                 shopId="partnershop"
@@ -100,6 +100,17 @@ describe('Soisy Loan Quote Widget', () => {
          }, () => {
              expect(widget.text()).toEqual('<QuoteSentence /><SentenceLogo />');
         });
+    });
+
+    it('outputs correct loan quote', async () => {
+        const widget = shallow(
+            <SoisyLoanQuoteWidget
+                shopId="partnershop"
+                amount={1200}
+                instalments={12} />
+        );
+
+        // await mockComponentDidMount(widget);
     });
 });
 
