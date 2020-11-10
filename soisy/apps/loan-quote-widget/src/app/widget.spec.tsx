@@ -1,5 +1,6 @@
 import React from 'react';
 import SoisyLoanQuoteWidget from './widget';
+import Popup from "./popup";
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
@@ -76,7 +77,7 @@ describe('Soisy Loan Quote Widget', () => {
              loanQuoteAmount: 6600,
              zeroInterestRate: false
          }, () => {
-             expect(widget.text()).toEqual('<QuoteSentence /><SentenceLogo />');
+             expect(widget.text()).toEqual('<QuoteSentence /><SentenceLogo /><Popup />');
         });
     });
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import LoanQuoteWidgetConfig from '../../loan-quote-widget.config';
 import QuoteSentence from './sentence';
+import Popup from "./popup";
 import { SentenceLogo } from './logo';
 import Convert from "./convert";
 
@@ -61,6 +62,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
                     instalments={this.props.instalments}
                     zeroInterestRate={this.state.zeroInterestRate} />
                 <SentenceLogo />
+                <Popup />
             </div>
         );
     }
