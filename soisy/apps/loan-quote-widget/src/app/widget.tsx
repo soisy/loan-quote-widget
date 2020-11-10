@@ -2,6 +2,7 @@ import React from 'react';
 import LoanQuoteWidgetConfig from '../../loan-quote-widget.config';
 import QuoteSentence from './sentence';
 import { SentenceLogo } from './logo';
+import Convert from "./convert";
 
 class SoisyLoanQuoteWidget extends React.Component<any, any> {
     async componentDidMount() {
@@ -15,7 +16,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
         }
 
         const loanQuote = await this.getLoanQuote(
-            this.amountToEurocents(this.props.amount),
+            Convert.amountToEurocents(this.props.amount),
             this.props.instalments,
             this.whichZeroInterestRate(shop)
         );
@@ -24,7 +25,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             isShopActive: shop.active,
             zeroInterestRate: this.whichZeroInterestRate(shop),
             maxInstalmentsNumber: shop.maxInstalmentsNumber,
-            loanQuoteAmount: loanQuote.median.instalmentAmount
+            loanQuoteAmount: Convert.eurocentsToAmount(loanQuote.median.instalmentAmount)
         });
     }
 
@@ -82,30 +83,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
     }
 
     whichZeroInterestRate(shop): boolean {
-        return this.getBool(this.props.zeroInterestRate ?? shop.zeroInterestRate);
-    }
-
-    amountToEurocents(amount: number): number {
-        return amount * 100;
-    }
-
-    eurocentsToAmount(eurocents: number): number {
-        return eurocents / 100;
-    }
-
-    getBool(param: any): boolean {
-        switch (param) {
-            case true:
-            case 1:
-            case '1':
-            case 'true':
-            case 'on':
-            case 'yes':
-                return true;
-
-            default:
-                return false;
-        }
+        return Convert.toBool(this.props.zeroInterestRate ?? shop.zeroInterestRate);
     }
 }
 

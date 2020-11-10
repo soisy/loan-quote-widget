@@ -28,6 +28,7 @@
   "private": true,
   "dependencies": {
     "document-register-element": "1.13.1",
+    "node-locale": "^2.0.2",
     "react-is": "16.13.1",
     "styled-components": "5.1.1"
   },

@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 const SentenceLogoWrapper = styled.div`
     display: inline-block;
-    height: 16px;
-    width: 75px;
+    height: 20px;
+    width: 85px;
     text-align: center;
 
     img {

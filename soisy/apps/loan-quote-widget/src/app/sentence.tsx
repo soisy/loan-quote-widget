@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Convert from "./convert";
 
 const Text = styled.span`
     font-family: Helvetica, sans-serif;
@@ -18,7 +19,7 @@ const Highlight = styled.span`
 const QuoteSentence = (props) => {
     return (
         <Text>
-            € <Highlight>{props.amount}</Highlight> per {props.instalments} mesi {props.zeroInterestRate ? 'a tasso zero con' : 'con'}
+            € <Highlight>{Convert.toCurrency(props.amount)}</Highlight> per {props.instalments} mesi {props.zeroInterestRate ? 'a tasso zero con' : 'con'}
         </Text>
     );
 }
