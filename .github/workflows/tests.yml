@@ -14,4 +14,3 @@ jobs:
             cd .docker
             docker-compose up -d
             docker-compose run web nx test
-            docker-compose run web nx test
