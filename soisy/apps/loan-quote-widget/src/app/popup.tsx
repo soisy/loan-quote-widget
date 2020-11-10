@@ -57,17 +57,19 @@ class Popup extends React.Component<any, any> {
         this.state = {
             isPopupOpen: false
         }
+
+        this.handleClick = this.handleClick.bind(this);
+        this.handleClickAndTogglePopup = this.handleClickAndTogglePopup.bind(this);
     }
 
     render() {
         const trigger = (
-            <PopupTrigger onClick={() => this.togglePopup(true)}><img src={InfoIcon} alt="info"/></PopupTrigger>);
+            <PopupTrigger onClick={this.handleClickAndTogglePopup}><img src={InfoIcon} alt="info"/></PopupTrigger>);
         const popup = (
-            <PopupBg onClick={() => this.togglePopup(false)}>
-                <PopupWrapper>
-                    <ClosingMark>×</ClosingMark>
+            <PopupBg onClick={this.handleClickAndTogglePopup}>
+                <PopupWrapper onClick={this.handleClick}>
+                    <ClosingMark onClick={this.handleClickAndTogglePopup}>×</ClosingMark>
                     <PopupContent
-                        onClick={(e) => e.stopPropagation()}
                         amount={this.props.amount}
                         instalments={this.props.instalments}
                         zeroInterestRate={this.props.zeroInterestRate} />
@@ -87,9 +89,20 @@ class Popup extends React.Component<any, any> {
         return trigger;
     }
 
-    togglePopup(popupOpen = false) {
+    handleClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+    }
+
+    handleClickAndTogglePopup(e) {
+        this.handleClick(e);
+        this.togglePopup();
+    }
+
+    togglePopup() {
         this.setState({
-            isPopupOpen: popupOpen
+            isPopupOpen: !this.state.isPopupOpen
         });
     }
 }

@@ -81,7 +81,7 @@ describe('Soisy Loan Quote Widget', () => {
         });
     });
 
-    it('outputs correct loan quote with no zero interest rate', async () => {
+    it('outputs complete loan quote with no zero interest rate', async () => {
         const quoteParams = {
             amount: 1200,
             instalments: 12,
@@ -111,14 +111,19 @@ describe('Soisy Loan Quote Widget', () => {
             },
             {
                 min: {
-                    instalmentAmount: 6600
+                    instalmentAmount: 6600,
+                    interestRate: 5.5,
+                    apr: 7.5
                 }
             }
         );
 
         setImmediate(() => {
             widget.update();
-            expect(widget.text()).toEqual('€ 66,00 per 12 mesi con');
+            expect(widget.text()).toMatch(/€ 66,00 per 12 mesi con/);
+
+            widget.find('Popup').simulate('click');
+            expect(widget.text()).toContain('Banana');
         });
     });
 });
