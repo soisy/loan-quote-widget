@@ -32,5 +32,5 @@ function assertPopupIsNotRendered(popup) {
 function assertAllPopupComponentsAreVisible(popup) {
     expect(popup.find('popup__PopupBg').length).toBe(1);
     expect(popup.find('popup__PopupWrapper').length).toBe(1);
-    expect(popup.find('popup__PopupContent').length).toBe(1);
+    expect(popup.find('PopupContent').length).toBe(1);
 }

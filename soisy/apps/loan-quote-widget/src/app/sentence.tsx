@@ -19,7 +19,7 @@ const Highlight = styled.span`
 const QuoteSentence = (props) => {
     return (
         <Text>
-            € <Highlight>{Convert.toCurrency(props.amount)}</Highlight> per {props.instalments} mesi {props.zeroInterestRate ? (<span><Highlight>a tasso zero</Highlight> con</span>) : 'con'}
+            € <Highlight>{props.amount}</Highlight> per {props.instalments} mesi {props.zeroInterestRate ? (<span><Highlight>a tasso zero</Highlight> con</span>) : 'con'}
         </Text>
     );
 }

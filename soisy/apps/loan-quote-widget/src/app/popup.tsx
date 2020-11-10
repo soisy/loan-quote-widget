@@ -68,7 +68,7 @@ class Popup extends React.Component<any, any> {
                     <ClosingMark>×</ClosingMark>
                     <PopupContent
                         onClick={(e) => e.stopPropagation()}
-                        amount={Convert.toCurrency(this.props.amount)}
+                        amount={this.props.amount}
                         instalments={this.props.instalments}
                         zeroInterestRate={this.props.zeroInterestRate} />
                 </PopupWrapper>
