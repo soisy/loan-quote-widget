@@ -4,14 +4,14 @@ import Convert from "./convert";
 
 const Text = styled.span`
     font-family: Helvetica, sans-serif;
-    font-size: 1.1em;
+    font-size: 0.96em;
     line-height: 1.5;
     font-weight: light;
     color: #565656;
 `;
 
 const Highlight = styled.span`
-    font-size: 1.3em;
+    font-size: 1.05em;
     font-weight: bold;
     color: #44c774;
 `;

@@ -1,6 +1,9 @@
 import React from "react";
 import InfoIcon from "../assets/info.svg";
+import PopupContent from "./popupContent";
 import styled from "styled-components";
+import Convert from "./convert";
+
 const PopupTrigger = styled.div`
     display: inline-block;
     height: 12px;
@@ -30,28 +33,49 @@ const PopupWrapper = styled.div`
     top: 15%;
     left: 50%;
     background-color: white;
+    border: 3px solid #545454;
 
-    width: 500px;
+    width: 400px;
     margin-left: -250px;
 `;
 
-const PopupContent = styled.div`
-    padding: 40px;
+const ClosingMark = styled.span`
+    color: #767676;
+    font-size: 1.1em;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    padding: 10px 15px;
+    cursor: pointer;
 `;
 
-
 class Popup extends React.Component<any, any> {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isPopupOpen: false
+        }
+    }
+
     render() {
-        const trigger = (<PopupTrigger onClick={(e) => this.handlePopup(e, true)}><img src={InfoIcon} alt="info"/></PopupTrigger>);
+        const trigger = (
+            <PopupTrigger onClick={() => this.togglePopup(true)}><img src={InfoIcon} alt="info"/></PopupTrigger>);
         const popup = (
-            <PopupBg onClick={(e) => this.handlePopup(e, false)}>
+            <PopupBg onClick={() => this.togglePopup(false)}>
                 <PopupWrapper>
-                    <PopupContent>ciao</PopupContent>
+                    <ClosingMark>×</ClosingMark>
+                    <PopupContent
+                        onClick={(e) => e.stopPropagation()}
+                        amount={Convert.toCurrency(this.props.amount)}
+                        instalments={this.props.instalments}
+                        zeroInterestRate={this.props.zeroInterestRate} />
                 </PopupWrapper>
             </PopupBg>
         );
 
-        if (this.state && this.state.isPopupOpen) {
+        if (this.state.isPopupOpen) {
             return (
                 <span>
                     {trigger}
@@ -63,8 +87,7 @@ class Popup extends React.Component<any, any> {
         return trigger;
     }
 
-    handlePopup(e, popupOpen: boolean) {
-        e.stopPropagation();
+    togglePopup(popupOpen = false) {
         this.setState({
             isPopupOpen: popupOpen
         });

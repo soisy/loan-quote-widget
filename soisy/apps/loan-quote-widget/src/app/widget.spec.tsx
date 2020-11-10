@@ -110,7 +110,7 @@ describe('Soisy Loan Quote Widget', () => {
                 zeroInterestRate: quoteParams.zeroInterestRate
             },
             {
-                median: {
+                min: {
                     instalmentAmount: 6600
                 }
             }

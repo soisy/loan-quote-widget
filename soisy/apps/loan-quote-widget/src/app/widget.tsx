@@ -26,7 +26,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             isShopActive: shop.active,
             zeroInterestRate: this.whichZeroInterestRate(shop),
             maxInstalmentsNumber: shop.maxInstalmentsNumber,
-            loanQuoteAmount: Convert.eurocentsToAmount(loanQuote.median.instalmentAmount)
+            loanQuoteAmount: Convert.eurocentsToAmount(loanQuote.min.instalmentAmount)
         });
     }
 
@@ -62,7 +62,10 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
                     instalments={this.props.instalments}
                     zeroInterestRate={this.state.zeroInterestRate} />
                 <SentenceLogo />
-                <Popup />
+                <Popup
+                    amount={this.state.loanQuoteAmount}
+                    instalments={this.props.instalments}
+                    zeroInterestRate={this.state.zeroInterestRate} />
             </div>
         );
     }
