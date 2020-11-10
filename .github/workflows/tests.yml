@@ -1,7 +1,8 @@
 name: Soisy Loan Quote Widget CI
 on:
   push:
-    branches: [ master ]
+    branches:
+      - '*'
 
 jobs:
   build_and_test:
@@ -12,5 +13,5 @@ jobs:
         run: |
             cd .docker
             docker-compose up -d
-            docker-compose ps
-            docker-compose exec web nx test
+            docker-compose run web nx test
+            docker-compose run web nx test

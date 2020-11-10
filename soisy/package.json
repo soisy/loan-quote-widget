@@ -5,7 +5,8 @@
   "scripts": {
     "nx": "nx",
     "start": "nx serve --host=0.0.0.0",
-    "build": "nx build",
+    "build": "nx build --optimization",
+    "build:prod": "npm run build && gulp bundleup",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
@@ -28,6 +29,11 @@
   "private": true,
   "dependencies": {
     "document-register-element": "1.13.1",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-uglify": "^3.0.2",
     "node-locale": "^2.0.2",
     "react-is": "16.13.1",
     "styled-components": "5.1.1"
