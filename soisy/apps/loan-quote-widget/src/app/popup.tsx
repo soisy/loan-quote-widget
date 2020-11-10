@@ -35,8 +35,8 @@ const PopupWrapper = styled.div`
     background-color: white;
     border: 3px solid #545454;
 
-    width: 400px;
-    margin-left: -250px;
+    width: 430px;
+    margin-left: -215px;
 `;
 
 const ClosingMark = styled.span`

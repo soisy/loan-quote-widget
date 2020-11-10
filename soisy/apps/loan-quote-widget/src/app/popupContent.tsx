@@ -8,7 +8,7 @@ const StyledContent = styled.div`
 
 const Caption = styled.span`
     font-family: Helvetica, sans-serif;
-    font-size: 1.2em;
+    font-size: 1.0em;
     line-height: 1.5;
     font-weight: light;
     color: #565656;
@@ -16,7 +16,7 @@ const Caption = styled.span`
 
 const SmallText = styled.span`
     font-family: Helvetica, sans-serif;
-    font-size: 0.80em;
+    font-size: 0.75em;
     line-height: 1.5;
     font-weight: light;
     color: #565656;
@@ -36,13 +36,13 @@ const LiText = styled.span`
 `;
 
 const Highlight = styled.span`
-    font-size: 1.15em;
+    font-size: 1.0em;
     font-weight: light;
     color: #44c774;
 `;
 
 const HighlightBold = styled.span`
-    font-size: 1.15em;
+    font-size: 1.0em;
     font-weight: bold;
     color: #44c774;
 `;
