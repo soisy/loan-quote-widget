@@ -72,7 +72,10 @@ class Popup extends React.Component<any, any> {
                     <PopupContent
                         amount={this.props.amount}
                         instalments={this.props.instalments}
-                        zeroInterestRate={this.props.zeroInterestRate} />
+                        zeroInterestRate={this.props.zeroInterestRate}
+                        interestRate={this.props.interestRate}
+                        apr={this.props.apr}
+                    />
                 </PopupWrapper>
             </PopupBg>
         );
@@ -90,9 +93,7 @@ class Popup extends React.Component<any, any> {
     }
 
     handleClick(e) {
-        e.preventDefault();
         e.stopPropagation();
-        e.nativeEvent.stopImmediatePropagation();
     }
 
     handleClickAndTogglePopup(e) {

@@ -72,7 +72,7 @@ const PopupContent = (props) => {
                 {props.zeroInterestRate ? (<Highlight> senza interessi</Highlight>) : ''},
             </Caption>
             <br/>
-            <SmallText>TAEG da {props.apr} e TAN da {props.interestRate} con il pagamento rateale <SentenceLogo /></SmallText>
+            <SmallText>TAEG da {props.apr}% e TAN da {props.interestRate}% con il pagamento rateale <SentenceLogo /></SmallText>
             <MainUl>
                 <li><LiText><strong>Metti in carrello i tuoi prodotti e scegli</strong></LiText> <PopupLogo /> <LiText><strong>checkout</strong></LiText></li>
                 <li>

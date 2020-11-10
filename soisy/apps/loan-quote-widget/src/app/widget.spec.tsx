@@ -74,14 +74,16 @@ describe('Soisy Loan Quote Widget', () => {
          widget.setState({
              isShopActive: true,
              maxInstalmentsNumber: 24,
-             loanQuoteAmount: 6600,
+             loanQuote: {
+                 amount: 6600
+             },
              zeroInterestRate: false
          }, () => {
              expect(widget.text()).toEqual('<QuoteSentence /><SentenceLogo /><Popup />');
         });
     });
 
-    it('outputs complete loan quote with no zero interest rate', async () => {
+    it('outputs complete loan quote with standard interest rate', async () => {
         const quoteParams = {
             amount: 1200,
             instalments: 12,
@@ -118,13 +120,57 @@ describe('Soisy Loan Quote Widget', () => {
             }
         );
 
-        setImmediate(() => {
-            widget.update();
-            expect(widget.text()).toMatch(/€ 66,00 per 12 mesi con/);
+        widget.update();
+        expect(widget.text()).toMatch(/€ 66,00 per 12 mesi con/);
 
-            widget.find('Popup').simulate('click');
-            expect(widget.text()).toContain('Banana');
-        });
+        widget.find('Popup').simulate('click');
+        expect(widget.find('Popup').text()).toMatch(/A partire da € 66,00 per 12 mesi,/);
+        expect(widget.find('Popup').text()).toMatch(/TAEG da 7,50% e TAN da 5,50% con il pagamento rateale/);
+    });
+
+    it('outputs complete loan quote with zero interest rate', async () => {
+        const quoteParams = {
+            amount: 1200,
+            instalments: 12,
+            zeroInterestRate: true,
+            shopId: 'partnershop'
+        }
+        const widget = mount(
+            <SoisyLoanQuoteWidget
+                shopId={quoteParams.shopId}
+                amount={quoteParams.amount}
+                instalments={quoteParams.instalments}
+                zeroInterestRate={quoteParams.zeroInterestRate} />
+        );
+
+        await mockComponentDidMount(
+            widget,
+            quoteParams.shopId,
+            {
+                active: true,
+                maxInstalmentsNumber: quoteParams.instalments * 2,
+                zeroInterestRate: true
+            },
+            {
+                amount: quoteParams.amount * 100,
+                instalments: quoteParams.instalments,
+                zeroInterestRate: quoteParams.zeroInterestRate
+            },
+            {
+                min: {
+                    instalmentAmount: 6600,
+                    interestRate: 5.5,
+                    apr: 0
+                }
+            }
+        );
+
+        widget.update();
+        expect(widget.text()).toMatch(/€ 66,00 per 12 mesi a tasso zero con/);
+
+        widget.find('Popup').simulate('click');
+        expect(widget.find('Popup').text()).toMatch(/A partire da € 66,00 per 12 mesi senza interessi,/);
+        expect(widget.find('Popup').text()).toMatch(/TAEG da 0,00% e TAN da 5,50% con il pagamento rateale/);
     });
 });
 

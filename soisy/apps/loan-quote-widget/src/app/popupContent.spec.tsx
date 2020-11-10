@@ -11,12 +11,12 @@ describe('Popup content', () => {
                 amount="66,10"
                 instalments={12}
                 zeroInterestRate={false}
-                interestRate="5,5"
-                apr="7,5"
+                interestRate="5,50"
+                apr="7,50"
             />
         );
         expect(content.text()).toMatch(/A partire da € 66,10 per 12 mesi,/);
-        expect(content.text()).toMatch(/TAEG da 7,5 e TAN da 5,5 con il pagamento rateale/);
+        expect(content.text()).toMatch(/TAEG da 7,50% e TAN da 5,50% con il pagamento rateale/);
     });
 
     it('Renders text with zero interest rate', () => {
@@ -25,11 +25,11 @@ describe('Popup content', () => {
                 amount="66,10"
                 instalments={12}
                 zeroInterestRate={true}
-                interestRate="5,5"
-                apr="0"
+                interestRate="5,50"
+                apr="0,00"
             />
         );
         expect(content.text()).toMatch(/A partire da € 66,10 per 12 mesi senza interessi,/);
-        expect(content.text()).toMatch(/TAEG da 0 e TAN da 5,5 con il pagamento rateale/);
+        expect(content.text()).toMatch(/TAEG da 0,00% e TAN da 5,50% con il pagamento rateale/);
     });
 });
