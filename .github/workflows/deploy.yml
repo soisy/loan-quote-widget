@@ -10,10 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Use Node.js 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: git fetch origin main
+      - run: npm install
+      - run: npm i -g gulp-cli nx
       - name: Build for prod and bundle up
-        run: |
-          cd .docker
-          docker-compose run --entrypoint=build web
+        run: npm run build:bundle
 
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
