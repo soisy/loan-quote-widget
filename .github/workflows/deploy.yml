@@ -13,8 +13,7 @@ jobs:
       - name: Build for prod and bundle up
         run: |
           cd .docker
-          docker-compose up -d
-          docker-compose run web build:bundle
+          docker-compose run --entrypoint=build web
 
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
