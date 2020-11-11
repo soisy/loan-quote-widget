@@ -5,7 +5,7 @@
   "scripts": {
     "nx": "nx",
     "start": "nx serve --host=0.0.0.0",
-    "build": "nx build --optimization",
+    "build": "nx run loan-quote-widget:build --optimization",
     "build:prod": "npm run build && gulp bundleup",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
