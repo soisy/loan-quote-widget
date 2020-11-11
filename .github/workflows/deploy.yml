@@ -14,10 +14,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm install
       - run: npm i -g gulp-cli nx
       - name: Build for prod and bundle up
-        run: npm run build:bundle
+        run: cd soisy && npm install && npm run build:bundle
 
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
