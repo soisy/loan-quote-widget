@@ -14,9 +14,8 @@ jobs:
         run: |
           cd .docker
           docker-compose up -d
-          docker-compose run web build
-          docker-compose run web build:prod
-          
+          docker-compose run web build:app
+
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@master
         with:
