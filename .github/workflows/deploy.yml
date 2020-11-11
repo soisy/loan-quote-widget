@@ -14,7 +14,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: git fetch origin main
       - run: npm install
       - run: npm i -g gulp-cli nx
       - name: Build for prod and bundle up
