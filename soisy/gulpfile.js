@@ -1,8 +1,6 @@
 var gulp = require('gulp'),
     gulpConcat = require('gulp-concat'),
-    gulpRename = require('gulp-rename'),
-    gulpUglify = require('gulp-uglify');
-
+    gulpRename = require('gulp-rename');
 function bundleup() {
     const srcPath = './dist/apps/loan-quote-widget';
     const concatBuildFiles = [
@@ -12,11 +10,11 @@ function bundleup() {
         srcPath + '/main.esm.js'
     ];
 
-    return gulp.src(concatBuildFiles)
+    return gulp.src(concatBuildFiles, {base: './'})
         .pipe(gulpConcat('concat.js'))
         .pipe(gulp.dest('dist'))
         .pipe(gulpRename('loan-quote-widget.js'))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist/bundle'));
 }
 
 gulp.task('bundleup', bundleup);
