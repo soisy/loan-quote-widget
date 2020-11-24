@@ -38,9 +38,9 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             zeroInterestRate: this.whichZeroInterestRate(shop),
             maxInstalmentsNumber: shop.maxInstalmentsNumber,
             loanQuote: {
-                amount: Convert.toCurrency(Convert.eurocentsToAmount(loanQuote.min.instalmentAmount)),
-                interestRate: Convert.toCurrency(loanQuote.min.interestRate),
-                apr: Convert.toCurrency(loanQuote.min.apr),
+                amount: Convert.toReadableNumber(Convert.eurocentsToAmount(loanQuote.min.instalmentAmount)),
+                interestRate: Convert.toReadableNumber(loanQuote.min.interestRate),
+                apr: Convert.toReadableNumber(loanQuote.min.apr),
             }
         });
     }

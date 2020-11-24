@@ -22,7 +22,7 @@ class Convert {
         return eurocents / 100;
     }
 
-    static toCurrency(number: number, locale = 'it-IT') {
+    static toReadableNumber(number: number, locale = 'it-IT') {
         return (new Intl.NumberFormat(locale, {style: 'decimal', minimumFractionDigits: 2})).format(number);
     }
 }

@@ -21,7 +21,7 @@ describe('Convert', () => {
     });
 
     it('it converts number to IT currency', () => {
-        expect(Convert.toCurrency(1234.56)).toBe('1.234,56');
-        expect(Convert.toCurrency(1234)).toBe('1.234,00');
+        expect(Convert.toReadableNumber(1234.56)).toBe('1.234,56');
+        expect(Convert.toReadableNumber(1234)).toBe('1.234,00');
     });
 });
