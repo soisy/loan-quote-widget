@@ -13,8 +13,14 @@ const Text = styled.span`
 
 const Highlight = styled.span`
     &&& {
-        font-size: 1.05em;
+        color: #44c774;
+    }
+`;
+
+const Price = styled.span`
+    &&& {
         font-weight: bold;
+        font-size: 1.15em;
         color: #44c774;
     }
 `;
@@ -22,7 +28,7 @@ const Highlight = styled.span`
 const QuoteSentence = (props) => {
     return (
         <Text>
-            € <Highlight>{props.amount}</Highlight> per {props.instalments} mesi {props.zeroInterestRate ? (<span><Highlight>a tasso zero</Highlight> con</span>) : 'con'}
+            da <Price>{props.amount} €</Price> per <b>{props.instalments} mesi</b> {props.zeroInterestRate ? (<span><Highlight>senza interessi</Highlight> con</span>) : 'con'}
         </Text>
     );
 }

@@ -121,7 +121,7 @@ describe('Soisy Loan Quote Widget', () => {
         );
 
         widget.update();
-        expect(widget.text()).toMatch(/€ 66,00 per 12 mesi con/);
+        expect(widget.text()).toMatch(/da 66,00 € per 12 mesi con/);
 
         widget.find('Popup').simulate('click');
         expect(widget.find('Popup').text()).toMatch(/A partire da € 66,00 per 12 mesi,/);
@@ -166,7 +166,7 @@ describe('Soisy Loan Quote Widget', () => {
         );
 
         widget.update();
-        expect(widget.text()).toMatch(/€ 66,00 per 12 mesi a tasso zero con/);
+        expect(widget.text()).toMatch(/da 66,00 € per 12 mesi senza interessi con/);
 
         widget.find('Popup').simulate('click');
         expect(widget.find('Popup').text()).toMatch(/A partire da € 66,00 per 12 mesi senza interessi,/);
