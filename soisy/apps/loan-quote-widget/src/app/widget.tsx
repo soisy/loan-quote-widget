@@ -1,9 +1,19 @@
 import React from 'react';
+import styled from "styled-components";
 import LoanQuoteWidgetConfig from '../../loan-quote-widget.config';
 import QuoteSentence from './sentence';
 import Popup from "./popup";
 import { SentenceLogo } from './logo';
 import Convert from "./convert";
+
+const WidgetWrapper = styled.span`
+    &&, && *, && *:before, && *:after {
+        margin: 0;
+        padding: 0;
+        float: none;
+        box-sizing: border-box;
+    }
+`;
 
 class SoisyLoanQuoteWidget extends React.Component<any, any> {
     async componentDidMount() {
@@ -13,6 +23,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
 
         const shop = await this.getShop(this.props.shopId);
         if (!shop.active) {
+            this.setState({active: false});
             return;
         }
 
@@ -60,7 +71,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
         }
 
         return (
-            <div>
+            <WidgetWrapper>
                 <QuoteSentence
                     amount={this.state.loanQuote.amount}
                     instalments={this.props.instalments}
@@ -74,7 +85,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
                     interestRate={this.state.loanQuote.interestRate}
                     apr={this.state.loanQuote.apr}
                 />
-            </div>
+            </WidgetWrapper>
         );
     }
 

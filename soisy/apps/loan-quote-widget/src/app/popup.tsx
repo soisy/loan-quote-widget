@@ -2,7 +2,6 @@ import React from "react";
 import InfoIcon from "../assets/info.svg";
 import PopupContent from "./popupContent";
 import styled from "styled-components";
-import Convert from "./convert";
 
 const PopupTrigger = styled.div`
     display: inline-block;
@@ -18,36 +17,42 @@ const PopupTrigger = styled.div`
 `;
 
 const PopupBg = styled.div`
-    position: fixed;
-    z-index: 9999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, .5);
+    &&& {
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .5);
+    }
 `;
 
 const PopupWrapper = styled.div`
-    position: relative;
-    z-index: 2;
-    top: 15%;
-    left: 50%;
-    background-color: white;
-    border: 3px solid #545454;
+    &&& {
+        position: relative;
+        z-index: 2;
+        top: 15%;
+        left: 50%;
+        background-color: white;
+        border: 3px solid #545454;
 
-    width: 500px;
-    margin-left: -250px;
+        width: 500px;
+        margin-left: -250px;
+    }
 `;
 
 const ClosingMark = styled.span`
-    color: #767676;
-    font-size: 1.1em;
-    position: absolute;
-    z-index: 10;
-    top: 0;
-    right: 0;
-    padding: 10px 15px;
-    cursor: pointer;
+    &&& {
+        color: #767676;
+        font-size: 1.1em;
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        padding: 10px 15px;
+        cursor: pointer;
+    }
 `;
 
 class Popup extends React.Component<any, any> {

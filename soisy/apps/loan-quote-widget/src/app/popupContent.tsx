@@ -3,65 +3,88 @@ import styled from "styled-components";
 import {PopupLogo, SentenceLogo} from "./logo";
 
 const StyledContent = styled.div`
-    padding: 40px;
+    &&& {
+        padding: 40px;
+    }
 `;
 
 const Caption = styled.span`
-    font-family: Helvetica, sans-serif;
-    font-size: 1.0em;
-    line-height: 1.5;
-    font-weight: light;
-    color: #565656;
+    &&& {
+        font-family: Helvetica, sans-serif;
+        font-size: 1.0em;
+        line-height: 1.5;
+        font-weight: light;
+        color: #565656;
+    }
 `;
 
 const SmallText = styled.span`
-    font-family: Helvetica, sans-serif;
-    font-size: 0.75em;
-    line-height: 1.5;
-    font-weight: light;
-    color: #565656;
+    &&& {
+        font-family: Helvetica, sans-serif;
+        font-size: 0.75em;
+        line-height: 1.5;
+        font-weight: light;
+        color: #565656;
 
-    a {
-        color: #44c774;
-        text-decoration: none;
+        a {
+            color: #44c774;
+            text-decoration: none;
+        }
     }
 `;
 
 const LiText = styled.span`
-    font-family: Helvetica, sans-serif;
-    font-size: 0.95em;
-    line-height: 1.5;
-    font-weight: light;
-    color: #565656;
+    &&& {
+        font-family: Helvetica, sans-serif;
+        font-size: 0.95em;
+        line-height: 1.5;
+        font-weight: light;
+        color: #565656;
+    }
 `;
 
 const Highlight = styled.span`
-    font-size: 1.0em;
-    font-weight: light;
-    color: #44c774;
+    &&& {
+        font-size: 1.0em;
+        font-weight: light;
+        color: #44c774;
+    }
 `;
 
 const HighlightBold = styled.span`
-    font-size: 1.0em;
-    font-weight: bold;
-    color: #44c774;
+    &&& {
+        font-size: 1.0em;
+        font-weight: bold;
+        color: #44c774;
+    }
 `;
 
 const MainUl = styled.ul`
-    list-style: decimal;
-    font-family: Helvetica, sans-serif;
-    color: #565656;
+    &&& {
+        list-style: decimal;
+        font-family: Helvetica, sans-serif;
+        color: #565656;
+        margin: 15px 0 15px 15px;
 
-    ul {
-        list-style: lower-alpha;
+        li {
+            margin: 5px 0;
+        }
+
+        ul {
+            margin: 0 0 0 20px;
+            list-style: lower-alpha;
+        }
     }
 `;
 
 const Separator = styled.div`
-    height: 1px;
-    background-color: #6a6a6a;
-    padding: 0;
-    margin: 20px 0;
+    &&& {
+        height: 1px;
+        background-color: #6a6a6a;
+        padding: 0;
+        margin: 20px 0;
+        display: block;
+    }
 `;
 
 const PopupContent = (props) => {
