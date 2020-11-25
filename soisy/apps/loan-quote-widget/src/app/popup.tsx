@@ -45,7 +45,8 @@ const PopupWrapper = styled.div`
 const ClosingMark = styled.span`
     &&& {
         color: #767676;
-        font-size: 1.1em;
+        font-size: 17.5px;
+        line-height: 17.5px;
         position: absolute;
         z-index: 10;
         top: 0;

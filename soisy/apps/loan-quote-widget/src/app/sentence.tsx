@@ -2,12 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Text = styled.span`
-    &&& {
-        font-family: Helvetica, sans-serif;
-        font-size: 0.96em;
-        line-height: 1.5;
-        font-weight: light;
-        color: #565656;
+    &&&, &&& b, &&& strong, &&& span {
+        font-size: 15px;
+        line-height: 20px;
     }
 `;
 
@@ -19,8 +16,9 @@ const Highlight = styled.span`
 
 const Price = styled.span`
     &&& {
-        font-weight: bold;
-        font-size: 1.15em;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 18px;
         color: #44c774;
     }
 `;

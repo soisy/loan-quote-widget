@@ -9,44 +9,38 @@ const StyledContent = styled.div`
 `;
 
 const Caption = styled.span`
-    &&& {
-        font-family: Helvetica, sans-serif;
-        font-size: 1.30em;
-        line-height: 1.5;
-        font-weight: light;
-        color: #565656;
+    &&&, &&& b, &&& strong, &&& span {
+        font-size: 21px;
+        line-height: 31px;
     }
 `;
 
 const SmallText = styled.span`
-    &&& {
-        font-family: Helvetica, sans-serif;
-        font-size: 0.70em;
-        line-height: 1.5;
-        font-weight: light;
-        color: #565656;
+    &&&, &&& b, &&& strong, &&& span {
+        font-size: 11px;
+        line-height: 12px;
+    }
 
-        a {
-            color: #44c774;
-            text-decoration: none;
-        }
+    &&& a {
+        color: #44c774;
+        text-decoration: none;
     }
 `;
 
 const LiText = styled.span`
+    &&&, &&& b, &&& strong, &&& span {
+        font-size: 15px;
+    }
+
     &&& {
-        font-family: Helvetica, sans-serif;
-        font-size: 0.95em;
-        line-height: 1.5;
-        font-weight: light;
-        color: #565656;
+        font-weight: 400;
     }
 `;
 
 const Highlight = styled.span`
     &&& {
-        font-size: 1.0em;
-        font-weight: light;
+        font-size: 16px;
+        font-weight: 400;
         color: #44c774;
     }
 `;
@@ -61,9 +55,11 @@ const Price = styled.span`
 const MainUl = styled.ul`
     &&& {
         list-style: decimal;
-        font-family: Helvetica, sans-serif;
-        color: #565656;
         margin: 15px 0 15px 15px;
+
+        li {
+            font-size: 15px;
+        }
 
         & > li {
             margin: 15px 0 5px;

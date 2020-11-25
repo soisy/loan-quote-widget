@@ -12,10 +12,18 @@ const WidgetWrapper = styled.span`
         padding: 0;
         float: none;
         box-sizing: border-box;
+        font-family: Helvetica, sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        color: #565656;
     }
 
     && {
         display: inline-block;
+    }
+
+    && strong, && b {
+        font-weight: 600;
     }
 `;
 
@@ -30,11 +38,11 @@ const AprWrapper = styled.span`
     &&& {
         text-align: right;
         display: block;
-        font-family: Helvetica, sans-serif;
-        font-size: 0.60em;
-        line-height: 1.5;
-        font-weight: light;
-        color: #565656;
+    }
+
+    &&&, &&& b, &&& strong, &&& span {
+        font-size: 10px;
+        line-height: 12px;
     }
 `;
 
