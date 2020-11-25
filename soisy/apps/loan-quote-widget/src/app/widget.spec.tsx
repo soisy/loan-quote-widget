@@ -134,7 +134,7 @@ describe('Soisy Loan Quote Widget', () => {
         expect(widget.text()).toMatch(/da 66,00 € per 12 mesi con/);
 
         widget.find('Popup').simulate('click');
-        expect(widget.find('Popup').text()).toMatch(/Da € 66,00 per 12 mesi,/);
+        expect(widget.find('Popup').text()).toMatch(/Da 66,00 € per 12 mesi,/);
         expect(widget.find('Popup').text()).toMatch(/TAN da 5,50% a 11,50% - TAEG da 7,50% a 14,50%/);
         expect(widget.find('Popup').text()).toMatch(/Spesa complessiva da 1.350,00€ a 1.400,00€/);
     });
@@ -188,7 +188,7 @@ describe('Soisy Loan Quote Widget', () => {
         expect(widget.text()).toMatch(/da 66,00 € per 12 mesi senza interessi con/);
 
         widget.find('Popup').simulate('click');
-        expect(widget.find('Popup').text()).toMatch(/Da € 66,00 per 12 mesi senza interessi,/);
+        expect(widget.find('Popup').text()).toMatch(/Da 66,00 € per 12 mesi senza interessi,/);
         expect(widget.find('Popup').text()).toMatch(/TAEG 0,00%/);
         expect(widget.find('Popup').text()).toMatch(/Spesa complessiva 1.200,00€/);
     });

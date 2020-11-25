@@ -11,7 +11,7 @@ const StyledContent = styled.div`
 const Caption = styled.span`
     &&& {
         font-family: Helvetica, sans-serif;
-        font-size: 1.0em;
+        font-size: 1.30em;
         line-height: 1.5;
         font-weight: light;
         color: #565656;
@@ -51,9 +51,8 @@ const Highlight = styled.span`
     }
 `;
 
-const HighlightBold = styled.span`
+const Price = styled.span`
     &&& {
-        font-size: 1.0em;
         font-weight: bold;
         color: #44c774;
     }
@@ -95,7 +94,7 @@ const PopupContent = (props) => {
     return (
         <StyledContent>
             <Caption>
-                Da € <HighlightBold>{props.min.amount}</HighlightBold> per <strong>{props.instalments} mesi</strong>
+                Da <Price>{props.min.amount} €</Price> per <strong>{props.instalments} mesi</strong>
                 {props.zeroInterestRate ? (<Highlight> senza interessi</Highlight>) : ''},
             </Caption>
             <br/>
@@ -103,19 +102,19 @@ const PopupContent = (props) => {
                 {
                     props.zeroInterestRate ? (
                             <span>
-                                TAEG {props.max.apr}%<br/>
-                                Spesa complessiva {props.max.totalRepaid}€
+                                TAEG <b>{props.max.apr}%</b><br/>
+                                Spesa complessiva <b>{props.max.totalRepaid}€</b>
                             </span>
                         ) : (
                             <span>
-                                TAN da {props.min.interestRate}% a {props.max.interestRate}% - TAEG da {props.min.apr}% a {props.max.apr}% <br/>
-                                Spesa complessiva da {props.min.totalRepaid}€ a {props.max.totalRepaid}€
+                                TAN da <b>{props.min.interestRate}%</b> a <b>{props.max.interestRate}%</b> - TAEG da <b>{props.min.apr}%</b> a <b>{props.max.apr}%</b> <br/>
+                                Spesa complessiva da <b>{props.min.totalRepaid}€</b> a <b>{props.max.totalRepaid}€</b>
                             </span>
                         )
                 }
             </SmallText>
             <MainUl>
-                <li><LiText><strong>Metti in carrello i tuoi prodotti e scegli</strong></LiText> <PopupLogo /> <LiText><strong>checkout</strong></LiText></li>
+                <li><LiText><strong>Metti in carrello i tuoi prodotti e scegli</strong></LiText> <PopupLogo /> <LiText>al <strong>checkout</strong></LiText></li>
                 <li>
                     <LiText><strong>Ottieni l'esito in 3 minuti e tieni a portata di mano:</strong></LiText>
                     <ul>
