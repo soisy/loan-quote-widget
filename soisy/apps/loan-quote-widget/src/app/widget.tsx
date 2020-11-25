@@ -13,6 +13,29 @@ const WidgetWrapper = styled.span`
         float: none;
         box-sizing: border-box;
     }
+
+    && {
+        display: inline-block;
+    }
+`;
+
+const SentenceWrapper = styled.span`
+    &&& {
+        text-align: left;
+        display: block;
+    }
+`;
+
+const AprWrapper = styled.span`
+    &&& {
+        text-align: right;
+        display: block;
+        font-family: Helvetica, sans-serif;
+        font-size: 0.60em;
+        line-height: 1.5;
+        font-weight: light;
+        color: #565656;
+    }
 `;
 
 class SoisyLoanQuoteWidget extends React.Component<any, any> {
@@ -23,7 +46,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
 
         const shop = await this.getShop(this.props.shopId);
         if (!shop.active) {
-            this.setState({active: false});
+            // this.setState({active: false});
             return;
         }
 
@@ -38,9 +61,18 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             zeroInterestRate: this.whichZeroInterestRate(shop),
             maxInstalmentsNumber: shop.maxInstalmentsNumber,
             loanQuote: {
-                amount: Convert.toReadableNumber(Convert.eurocentsToAmount(loanQuote.min.instalmentAmount)),
-                interestRate: Convert.toReadableNumber(loanQuote.min.interestRate),
-                apr: Convert.toReadableNumber(loanQuote.min.apr),
+                min: {
+                    amount: Convert.toReadableNumber(Convert.eurocentsToAmount(loanQuote.min.instalmentAmount)),
+                    totalRepaid: Convert.toReadableNumber(Convert.eurocentsToAmount(loanQuote.min.totalRepaid)),
+                    interestRate: Convert.toReadableNumber(loanQuote.min.interestRate),
+                    apr: Convert.toReadableNumber(loanQuote.min.apr),
+                },
+                max: {
+                    amount: Convert.toReadableNumber(Convert.eurocentsToAmount(loanQuote.max.instalmentAmount)),
+                    totalRepaid: Convert.toReadableNumber(Convert.eurocentsToAmount(loanQuote.max.totalRepaid)),
+                    interestRate: Convert.toReadableNumber(loanQuote.max.interestRate),
+                    apr: Convert.toReadableNumber(loanQuote.max.apr),
+                }
             }
         });
     }
@@ -72,19 +104,21 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
 
         return (
             <WidgetWrapper>
-                <QuoteSentence
-                    amount={this.state.loanQuote.amount}
-                    instalments={this.props.instalments}
-                    zeroInterestRate={this.state.zeroInterestRate}
-                />
-                <SentenceLogo />
-                <Popup
-                    amount={this.state.loanQuote.amount}
-                    instalments={this.props.instalments}
-                    zeroInterestRate={this.state.zeroInterestRate}
-                    interestRate={this.state.loanQuote.interestRate}
-                    apr={this.state.loanQuote.apr}
-                />
+                <SentenceWrapper>
+                    <QuoteSentence
+                        amount={this.state.loanQuote.min.amount}
+                        instalments={this.props.instalments}
+                        zeroInterestRate={this.state.zeroInterestRate}
+                    />
+                    <SentenceLogo />
+                    <Popup
+                        instalments={this.props.instalments}
+                        zeroInterestRate={this.state.zeroInterestRate}
+                        min={this.state.loanQuote.min}
+                        max={this.state.loanQuote.max}
+                    />
+                </SentenceWrapper>
+                <AprWrapper>TAEG {this.state.loanQuote.min.apr}%</AprWrapper>
             </WidgetWrapper>
         );
     }

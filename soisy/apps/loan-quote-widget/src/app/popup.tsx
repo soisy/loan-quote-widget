@@ -75,11 +75,10 @@ class Popup extends React.Component<any, any> {
                 <PopupWrapper onClick={this.handleClick}>
                     <ClosingMark onClick={this.handleClickAndTogglePopup}>×</ClosingMark>
                     <PopupContent
-                        amount={this.props.amount}
                         instalments={this.props.instalments}
                         zeroInterestRate={this.props.zeroInterestRate}
-                        interestRate={this.props.interestRate}
-                        apr={this.props.apr}
+                        min={this.props.min}
+                        max={this.props.max}
                     />
                 </PopupWrapper>
             </PopupBg>

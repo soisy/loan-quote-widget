@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {PopupLogo, SentenceLogo} from "./logo";
+import {PopupLogo} from "./logo";
 
 const StyledContent = styled.div`
     &&& {
@@ -21,7 +21,7 @@ const Caption = styled.span`
 const SmallText = styled.span`
     &&& {
         font-family: Helvetica, sans-serif;
-        font-size: 0.75em;
+        font-size: 0.70em;
         line-height: 1.5;
         font-weight: light;
         color: #565656;
@@ -66,13 +66,17 @@ const MainUl = styled.ul`
         color: #565656;
         margin: 15px 0 15px 15px;
 
-        li {
-            margin: 5px 0;
+        & > li {
+            margin: 15px 0 5px;
         }
 
         ul {
             margin: 0 0 0 20px;
-            list-style: lower-alpha;
+            list-style: disc;
+
+            & > li {
+                margin: 5px 0;
+            }
         }
     }
 `;
@@ -91,20 +95,33 @@ const PopupContent = (props) => {
     return (
         <StyledContent>
             <Caption>
-                A partire da € <HighlightBold>{props.amount}</HighlightBold> per <strong>{props.instalments} mesi</strong>
+                Da € <HighlightBold>{props.min.amount}</HighlightBold> per <strong>{props.instalments} mesi</strong>
                 {props.zeroInterestRate ? (<Highlight> senza interessi</Highlight>) : ''},
             </Caption>
             <br/>
-            <SmallText>TAEG da {props.apr}% e TAN da {props.interestRate}% con il pagamento rateale <SentenceLogo /></SmallText>
+            <SmallText>
+                {
+                    props.zeroInterestRate ? (
+                            <span>
+                                TAEG {props.max.apr}%<br/>
+                                Spesa complessiva {props.max.totalRepaid}€
+                            </span>
+                        ) : (
+                            <span>
+                                TAN da {props.min.interestRate}% a {props.max.interestRate}% - TAEG da {props.min.apr}% a {props.max.apr}% <br/>
+                                Spesa complessiva da {props.min.totalRepaid}€ a {props.max.totalRepaid}€
+                            </span>
+                        )
+                }
+            </SmallText>
             <MainUl>
                 <li><LiText><strong>Metti in carrello i tuoi prodotti e scegli</strong></LiText> <PopupLogo /> <LiText><strong>checkout</strong></LiText></li>
                 <li>
                     <LiText><strong>Ottieni l'esito in 3 minuti e tieni a portata di mano:</strong></LiText>
                     <ul>
-                        <li><LiText>foto del tuo documento d'identità fronte/retro</LiText></li>
-                        <li><LiText>foto/selfie con questo documento in mano</LiText></li>
-                        <li><LiText>foto del codice fiscale fronte/retro</LiText></li>
                         <li><LiText>IBAN su cui addebitare i pagamenti mensili</LiText></li>
+                        <li><LiText>documento di identità</LiText></li>
+                        <li><LiText>tessera sanitaria (la chiediamo solo in alcuni casi)</LiText></li>
                     </ul>
                 </li>
                 <li>

@@ -75,11 +75,14 @@ describe('Soisy Loan Quote Widget', () => {
              isShopActive: true,
              maxInstalmentsNumber: 24,
              loanQuote: {
-                 amount: 6600
+                 min: {
+                    amount: "66,00",
+                    apr: "14,56",
+                 }
              },
              zeroInterestRate: false
          }, () => {
-             expect(widget.text()).toEqual('<QuoteSentence /><SentenceLogo /><Popup />');
+             expect(widget.text()).toEqual('<QuoteSentence /><SentenceLogo /><Popup />TAEG 14,56%');
         });
     });
 
@@ -115,8 +118,15 @@ describe('Soisy Loan Quote Widget', () => {
                 min: {
                     instalmentAmount: 6600,
                     interestRate: 5.5,
-                    apr: 7.5
-                }
+                    apr: 7.5,
+                    totalRepaid: 135000,
+                },
+                max: {
+                    instalmentAmount: 8000,
+                    interestRate: 11.5,
+                    apr: 14.5,
+                    totalRepaid: 140000,
+                },
             }
         );
 
@@ -124,8 +134,9 @@ describe('Soisy Loan Quote Widget', () => {
         expect(widget.text()).toMatch(/da 66,00 € per 12 mesi con/);
 
         widget.find('Popup').simulate('click');
-        expect(widget.find('Popup').text()).toMatch(/A partire da € 66,00 per 12 mesi,/);
-        expect(widget.find('Popup').text()).toMatch(/TAEG da 7,50% e TAN da 5,50% con il pagamento rateale/);
+        expect(widget.find('Popup').text()).toMatch(/Da € 66,00 per 12 mesi,/);
+        expect(widget.find('Popup').text()).toMatch(/TAN da 5,50% a 11,50% - TAEG da 7,50% a 14,50%/);
+        expect(widget.find('Popup').text()).toMatch(/Spesa complessiva da 1.350,00€ a 1.400,00€/);
     });
 
     it('outputs complete loan quote with zero interest rate', async () => {
@@ -160,8 +171,16 @@ describe('Soisy Loan Quote Widget', () => {
                 min: {
                     instalmentAmount: 6600,
                     interestRate: 5.5,
-                    apr: 0
-                }
+                    apr: 0,
+                    totalRepaid: 120000,
+
+                },
+                max: {
+                    instalmentAmount: 6600,
+                    interestRate: 14,
+                    apr: 0,
+                    totalRepaid: 120000,
+                },
             }
         );
 
@@ -169,8 +188,9 @@ describe('Soisy Loan Quote Widget', () => {
         expect(widget.text()).toMatch(/da 66,00 € per 12 mesi senza interessi con/);
 
         widget.find('Popup').simulate('click');
-        expect(widget.find('Popup').text()).toMatch(/A partire da € 66,00 per 12 mesi senza interessi,/);
-        expect(widget.find('Popup').text()).toMatch(/TAEG da 0,00% e TAN da 5,50% con il pagamento rateale/);
+        expect(widget.find('Popup').text()).toMatch(/Da € 66,00 per 12 mesi senza interessi,/);
+        expect(widget.find('Popup').text()).toMatch(/TAEG 0,00%/);
+        expect(widget.find('Popup').text()).toMatch(/Spesa complessiva 1.200,00€/);
     });
 });
 

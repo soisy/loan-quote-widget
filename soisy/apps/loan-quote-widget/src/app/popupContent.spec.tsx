@@ -6,30 +6,58 @@ configure({ adapter: new Adapter() });
 
 describe('Popup content', () => {
     it('Renders text with standard interest rate', () => {
+        const min = {
+            amount: "66,10",
+            totalRepaid: "1.350,00",
+            interestRate: "7,50",
+            apr: "5,50",
+        };
+
+        const max = {
+            amount: "70,10",
+            totalRepaid: "1.400,00",
+            interestRate: "11,50",
+            apr: "14,50",
+        };
+
         const content = shallow(
             <PopupContent
-                amount="66,10"
                 instalments={12}
                 zeroInterestRate={false}
-                interestRate="5,50"
-                apr="7,50"
+                min={min}
+                max={max}
             />
         );
-        expect(content.text()).toMatch(/A partire da € 66,10 per 12 mesi,/);
-        expect(content.text()).toMatch(/TAEG da 7,50% e TAN da 5,50% con il pagamento rateale/);
+        expect(content.text()).toMatch(/Da € 66,10 per 12 mesi,/);
+        expect(content.text()).toMatch(/TAN da 7,50% a 11,50% - TAEG da 5,50% a 14,50%/);
+        expect(content.text()).toMatch(/Spesa complessiva da 1.350,00€ a 1.400,00€/);
     });
 
     it('Renders text with zero interest rate', () => {
+        const min = {
+            amount: "66,10",
+            totalRepaid: "1.399,99",
+            interestRate: "7,50",
+            apr: "5,50",
+        };
+
+        const max = {
+            amount: "66,10",
+            totalRepaid: "1.400,00",
+            interestRate: "11,50",
+            apr: "0,00",
+        };
+
         const content = shallow(
             <PopupContent
-                amount="66,10"
                 instalments={12}
                 zeroInterestRate={true}
-                interestRate="5,50"
-                apr="0,00"
+                min={min}
+                max={max}
             />
         );
-        expect(content.text()).toMatch(/A partire da € 66,10 per 12 mesi senza interessi,/);
-        expect(content.text()).toMatch(/TAEG da 0,00% e TAN da 5,50% con il pagamento rateale/);
+        expect(content.text()).toMatch(/Da € 66,10 per 12 mesi senza interessi,/);
+        expect(content.text()).toMatch(/TAEG 0,00%/);
+        expect(content.text()).toMatch(/Spesa complessiva 1.400,00€/);
     });
 });
