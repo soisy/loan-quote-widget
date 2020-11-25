@@ -46,7 +46,7 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
 
         const shop = await this.getShop(this.props.shopId);
         if (!shop.active) {
-            // this.setState({active: false});
+            this.setState({active: false});
             return;
         }
 
