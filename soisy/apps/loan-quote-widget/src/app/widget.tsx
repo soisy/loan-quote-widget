@@ -118,7 +118,9 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
                         max={this.state.loanQuote.max}
                     />
                 </SentenceWrapper>
-                <AprWrapper>TAEG {this.state.loanQuote.min.apr}%</AprWrapper>
+                <AprWrapper>
+                    {this.outputAprInfo()}
+                </AprWrapper>
             </WidgetWrapper>
         );
     }
@@ -142,6 +144,24 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
 
     whichZeroInterestRate(shop): boolean {
         return Convert.toBool(this.props.zeroInterestRate ?? shop.zeroInterestRate);
+    }
+
+    outputAprInfo() {
+        return (
+            <span>
+                {
+                    this.state.zeroInterestRate ? (
+                        <span>
+                            TAEG {this.state.loanQuote.max.apr}%
+                        </span>
+                    ) : (
+                        <span>
+                            TAEG max {this.state.loanQuote.max.apr}%, spesa complessiva max {this.state.loanQuote.max.totalRepaid}€
+                        </span>
+                    )
+                }
+            </span>
+        );
     }
 }
 

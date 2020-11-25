@@ -63,7 +63,7 @@ describe('Soisy Loan Quote Widget', () => {
         expect(widget.instance().whichZeroInterestRate({zeroInterestRate: true})).toBe(true);
     });
 
-    it('shallowly renders all subcomponents correctly', async () => {
+    it('shallowly renders all subcomponents correctly with standard interest rate', async () => {
         const widget = shallow(
             <SoisyLoanQuoteWidget
                 shopId="partnershop"
@@ -76,13 +76,42 @@ describe('Soisy Loan Quote Widget', () => {
              maxInstalmentsNumber: 24,
              loanQuote: {
                  min: {
-                    amount: "66,00",
-                    apr: "14,56",
+                     amount: "66,10",
+                 },
+                 max: {
+                     totalRepaid: "1.234,56",
+                     apr: "14,56",
                  }
              },
              zeroInterestRate: false
          }, () => {
-             expect(widget.text()).toEqual('<QuoteSentence /><SentenceLogo /><Popup />TAEG 14,56%');
+             expect(widget.text()).toEqual('<QuoteSentence /><SentenceLogo /><Popup />TAEG max 14,56%, spesa complessiva max 1.234,56€');
+        });
+    });
+
+    it('shallowly renders all subcomponents correctly with zero interest rate', async () => {
+        const widget = shallow(
+            <SoisyLoanQuoteWidget
+                shopId="partnershop"
+                amount={1200}
+                instalments={12} />
+        );
+
+        widget.setState({
+            isShopActive: true,
+            maxInstalmentsNumber: 24,
+            loanQuote: {
+                min: {
+                    amount: "66,10",
+                },
+                max: {
+                    amount: "66,00",
+                    apr: "14,56",
+                }
+            },
+            zeroInterestRate: true
+        }, () => {
+            expect(widget.text()).toEqual('<QuoteSentence /><SentenceLogo /><Popup />TAEG 14,56%');
         });
     });
 
