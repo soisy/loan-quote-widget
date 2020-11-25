@@ -37,7 +37,7 @@ jobs:
           SOURCE_DIR: "soisy/dist/bundle"
       
       - name: Clean CloudFront distribution cache
-      - uses: awact/cloudfront-action@master
+        uses: awact/cloudfront-action@master
         env:
           SOURCE_PATH: './loan-quote-widget.js'
           AWS_REGION: ${{ secrets.AWS_REGION }}
