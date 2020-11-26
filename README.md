@@ -36,10 +36,11 @@ NOTE: If the address above doesn't give you a response please note that the `npm
 
 ## Running tests
 
-This project uses [NX](https://nx.dev) as tool for development.
-Run all your tests with
+This project uses [NX](https://nx.dev) as tool for development.  
+You can execute the test suite by running
 ```sh
 $ nx test
 ```
+inside your docker container.
 
 Refer to NX documentation or run `nx test --help` if you need more info.
