@@ -12,7 +12,7 @@ This software is provided under the [Mozilla Public License 2.0](LICENSE). Pleas
 ## Requirements 
 
 Please note that this project uses [Docker](https://www.docker.com) for development and CI/CD.
-Therefore is mandatory to have `docker` and `docker-compose` installed in your local environment.
+Therefore it is mandatory to have `docker` and `docker-compose` installed in your local environment.
 
 
 ## Installation
