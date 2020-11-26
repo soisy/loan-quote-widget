@@ -5,7 +5,7 @@ Embed the loan quote widget in your e-commerce to show your customer how much th
 The embedding instructions are written in our [official documentation](https://doc.soisy.it/).
 
 This repository is open-source so that, those who needs, could download it and customize their own version.
-This software is provided under the [Mozilla Public License 2.0](LICENSE.md). Please check section 6 of the license.
+This software is provided under the [Mozilla Public License 2.0](LICENSE). Please check section 6 of the license.
 
 
 
