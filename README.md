@@ -9,15 +9,18 @@ This software is provided under the [Mozilla Public License 2.0](LICENSE). Pleas
 
 
 
-## Requirements 
+## Requirements if you want to test locally
 
 Please note that this project uses [Docker](https://www.docker.com) for development and CI/CD.
 Therefore it is mandatory to have `docker` and `docker-compose` installed in your local environment.
 
 
-## Installation
+## Local installation
 
-To install the source locally please follow these instructions:
+If you simply want to **embed** the widget in your page please refer to our [official documentation](https://doc.soisy.it/).
+If you want to have your own local copy, then please read further. 
+
+To install the widget's source locally please follow these instructions:
 
   - Git clone this repo to your local development environment
   - `cd` to the root of the project
