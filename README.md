@@ -17,8 +17,8 @@ Therefore it is mandatory to have `docker` and `docker-compose` installed in you
 
 ## Local installation
 
-If you simply want to **embed** the widget in your page please refer to our [official documentation](https://doc.soisy.it/).
-If you want to have your own local copy, then please read further. 
+**If you simply want to embed** the widget in your page please refer to our [official documentation](https://doc.soisy.it/).  
+**If you want to have your own local copy, then please read further**. 
 
 To install the widget's source locally please follow these instructions:
 
