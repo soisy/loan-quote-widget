@@ -33,3 +33,13 @@ To install the widget's source locally please follow these instructions:
 You can check your local widget running at this address [http://localhost:4200](http://localhost:4200).
 
 NOTE: If the address above doesn't give you a response please note that the `npm i` command may still be installing and building something up. Wait another couple of minutes and you'll see everything's working.
+
+## Running tests
+
+This project uses [NX](https://nx.dev) as tool for development.
+Run all your tests with
+```sh
+$ nx test
+```
+
+Refer to NX documentation or run `nx test --help` if you need more info.
