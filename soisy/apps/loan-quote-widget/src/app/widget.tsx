@@ -14,6 +14,7 @@ const WidgetWrapper = styled.span`
         box-sizing: border-box;
         font-family: Helvetica, sans-serif;
         font-size: 10px;
+        line-height: 1;
         font-weight: 400;
         color: #565656;
     }
