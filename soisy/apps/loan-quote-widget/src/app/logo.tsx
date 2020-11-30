@@ -6,7 +6,7 @@ const SentenceLogoWrapper = styled.span`
     &&& {
         display: inline-block;
         height: 17px;
-        width: 75px;
+        width: 65px;
         text-align: center;
 
         img {

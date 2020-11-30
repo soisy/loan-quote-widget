@@ -5,6 +5,10 @@ import {PopupLogo} from "./logo";
 const StyledContent = styled.div`
     &&& {
         padding: 40px;
+
+        @media screen (min-width: 720px) {
+            padding: 40px 40px 0 40px;
+        }
     }
 `;
 

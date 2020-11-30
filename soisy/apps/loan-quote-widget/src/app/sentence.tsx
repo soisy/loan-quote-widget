@@ -6,11 +6,10 @@ const Text = styled.span`
         font-size: 15px;
         line-height: 20px;
     }
-`;
 
-const Highlight = styled.span`
     &&& {
-        color: #44c774;
+        display: inline-block;
+        margin-right: 5px;
     }
 `;
 
@@ -25,9 +24,7 @@ const Price = styled.span`
 
 const QuoteSentence = (props) => {
     return (
-        <Text>
-            da <Price>{props.amount} €</Price> per <b>{props.instalments} mesi</b> {props.zeroInterestRate ? (<span><Highlight>senza interessi</Highlight> con</span>) : 'con'}
-        </Text>
+        <Text>da <Price>{props.amount} €</Price> per <b>{props.instalments} mesi</b>{props.zeroInterestRate ? (<b> senza interessi</b>) : ''} con</Text>
     );
 }
 
