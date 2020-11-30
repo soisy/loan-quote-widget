@@ -5,19 +5,22 @@ Embed the loan quote widget in your e-commerce to show your customer how much th
 The embedding instructions are written in our [official documentation](https://doc.soisy.it/).
 
 This repository is open-source so that, those who needs, could download it and customize their own version.
-This software is provided under the [Mozilla Public License 2.0](LICENSE.md). Please check section 6 of the license.
+This software is provided under the [Mozilla Public License 2.0](LICENSE). Please check section 6 of the license.
 
 
 
-## Requirements 
+## Requirements if you want to test locally
 
 Please note that this project uses [Docker](https://www.docker.com) for development and CI/CD.
-Therefore is mandatory to have `docker` and `docker-compose` installed in your local environment.
+Therefore it is mandatory to have `docker` and `docker-compose` installed in your local environment.
 
 
-## Installation
+## Local installation
 
-To install the source locally please follow these instructions:
+**If you simply want to embed** the widget in your page please refer to our [official documentation](https://doc.soisy.it/).  
+**If you want to have your own local copy, then please read further**. 
+
+To install the widget's source locally please follow these instructions:
 
   - Git clone this repo to your local development environment
   - `cd` to the root of the project
@@ -30,3 +33,14 @@ To install the source locally please follow these instructions:
 You can check your local widget running at this address [http://localhost:4200](http://localhost:4200).
 
 NOTE: If the address above doesn't give you a response please note that the `npm i` command may still be installing and building something up. Wait another couple of minutes and you'll see everything's working.
+
+## Running tests
+
+This project uses [NX](https://nx.dev) as tool for development.  
+You can execute the test suite by running
+```sh
+$ nx test
+```
+inside your docker container.
+
+Refer to NX documentation or run `nx test --help` if you need more info.
