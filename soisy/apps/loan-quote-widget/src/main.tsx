@@ -7,8 +7,8 @@ soisyWidgetInit();
 
 function soisyWidgetInit() {
     let currentIteration = 0;
-    const maxIterations = 5;
-    const tick = 1000;
+    const maxIterations = 50;
+    const tick = 100;
 
     const soisyInterval = setInterval(() => {
         if (currentIteration >= maxIterations) {
