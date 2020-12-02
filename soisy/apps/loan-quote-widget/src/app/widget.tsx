@@ -61,14 +61,15 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
 
         const loanQuote = await this.getLoanQuote(
             Convert.amountToEurocents(this.props.amount),
-            this.props.instalments,
+            this.whichInstalmentsAmount(this.props.instalments, shop.maxLoanInstalmentsNumber),
             this.whichZeroInterestRate(shop)
         );
 
         this.setState({
             isShopActive: shop.active,
             zeroInterestRate: this.whichZeroInterestRate(shop),
-            maxInstalmentsNumber: shop.maxInstalmentsNumber,
+            instalments: this.whichInstalmentsAmount(this.props.instalments, shop.maxLoanInstalmentsNumber),
+            maxLoanInstalmentsNumber: shop.maxLoanInstalmentsNumber,
             loanQuote: {
                 min: {
                     amount: Convert.toReadableNumber(Convert.eurocentsToAmount(loanQuote.min.instalmentAmount)),
@@ -95,10 +96,6 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             return (<p>amount parameter is not set.</p>);
         }
 
-        if (!this.props.instalments) {
-            return (<p>instalments parameter is not set.</p>);
-        }
-
         if (!this.state) {
             return (<span/>);
         }
@@ -107,21 +104,17 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
             return (<p>shopId is not active.</p>);
         }
 
-        if (this.props.instalments > this.state.maxInstalmentsNumber) {
-            return (<p>instalments parameter is greater than shopId's maximum of {this.state.maxInstalmentsNumber}</p>);
-        }
-
         return (
             <WidgetWrapper>
                 <SentenceWrapper>
                     <QuoteSentence
                         amount={this.state.loanQuote.min.amount}
-                        instalments={this.props.instalments}
+                        instalments={this.state.instalments}
                         zeroInterestRate={this.state.zeroInterestRate}
                     />
                     <SentenceLogo />
                     <Popup
-                        instalments={this.props.instalments}
+                        instalments={this.state.instalments}
                         zeroInterestRate={this.state.zeroInterestRate}
                         min={this.state.loanQuote.min}
                         max={this.state.loanQuote.max}
@@ -153,6 +146,18 @@ class SoisyLoanQuoteWidget extends React.Component<any, any> {
 
     whichZeroInterestRate(shop): boolean {
         return Convert.toBool(this.props.zeroInterestRate ?? shop.zeroInterestRate);
+    }
+
+    whichInstalmentsAmount(widgetInstalments: number | null | undefined, shopMaxInstalments: number): number {
+        if (!widgetInstalments) {
+            return shopMaxInstalments;
+        }
+
+        if (widgetInstalments > shopMaxInstalments) {
+            return shopMaxInstalments;
+        }
+
+        return widgetInstalments;
     }
 
     outputAprInfo() {

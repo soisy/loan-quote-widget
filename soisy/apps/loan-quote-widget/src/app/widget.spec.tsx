@@ -1,6 +1,5 @@
 import React from 'react';
 import SoisyLoanQuoteWidget from './widget';
-import Popup from "./popup";
 import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
@@ -22,11 +21,6 @@ describe('Soisy Loan Quote Widget', () => {
         expect(widget.text()).toEqual('amount parameter is not set.');
     });
 
-    it('shows an error if instalments parameter is not set', async () => {
-        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" />);
-        expect(widget.text()).toEqual('instalments parameter is not set.');
-    });
-
     it('shows nothing if state is not set yet', async () => {
         const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={3}/>);
         expect(widget.html()).toEqual("<span></span>");
@@ -39,11 +33,18 @@ describe('Soisy Loan Quote Widget', () => {
         })
     });
 
-    it('shows an error if widget\'s instalments are greater than shop\'s maxInstalments', async () => {
-        const widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={13}/>);
-        widget.setState({isShopActive: true, maxInstalmentsNumber: 12}, () => {
-            expect(widget.text()).toEqual('instalments parameter is greater than shopId\'s maximum of 12');
-        });
+    it('backs up to shop\'s max instalments if widget\'s instalments are greater than shop\'s maximum', async () => {
+        let widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={13}/>);
+        expect(widget.instance().whichInstalmentsAmount(13, 12)).toEqual(12);
+
+        widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" instalments={0}/>);
+        expect(widget.instance().whichInstalmentsAmount(0, 12)).toEqual(12);
+
+        widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" />);
+        expect(widget.instance().whichInstalmentsAmount(null, 12)).toEqual(12);
+
+        widget = shallow(<SoisyLoanQuoteWidget shopId="partnershop" amount="1200" />);
+        expect(widget.instance().whichInstalmentsAmount(undefined, 12)).toEqual(12);
     });
 
     it('prefers widget\'s zeroInterestRate over shop\'s one', async () => {
@@ -220,6 +221,60 @@ describe('Soisy Loan Quote Widget', () => {
         expect(widget.find('Popup').text()).toMatch(/Da 66,00 € per 12 mesi senza interessi,/);
         expect(widget.find('Popup').text()).toMatch(/TAEG 0,00%/);
         expect(widget.find('Popup').text()).toMatch(/Spesa complessiva 1.200,00€/);
+    });
+
+    it('outputs complete loan quote if widget instalments are higher than shop\'s', async () => {
+        const quoteParams = {
+            amount: 1200,
+            instalments: 12,
+            shopMaxInstalments: 3,
+            zeroInterestRate: false,
+            shopId: 'partnershop'
+        }
+        const widget = mount(
+            <SoisyLoanQuoteWidget
+                shopId={quoteParams.shopId}
+                amount={quoteParams.amount}
+                instalments={quoteParams.instalments}
+                zeroInterestRate={quoteParams.zeroInterestRate} />
+        );
+
+        await mockComponentDidMount(
+            widget,
+            quoteParams.shopId,
+            {
+                active: true,
+                maxLoanInstalmentsNumber: quoteParams.shopMaxInstalments,
+                zeroInterestRate: true
+            },
+            {
+                amount: quoteParams.amount * 100,
+                instalments: quoteParams.shopMaxInstalments,
+                zeroInterestRate: quoteParams.zeroInterestRate
+            },
+            {
+                min: {
+                    instalmentAmount: 6600,
+                    interestRate: 5.5,
+                    apr: 7.5,
+                    totalRepaid: 135000,
+                },
+                max: {
+                    instalmentAmount: 8000,
+                    interestRate: 11.5,
+                    apr: 14.5,
+                    totalRepaid: 140000,
+                },
+            }
+        );
+
+        widget.update();
+        expect(widget.text()).toMatch(/da 66,00 € per 3 mesi con/);
+
+        widget.find('Popup').simulate('click');
+        expect(widget.find('Popup').text()).toMatch(/Da 66,00 € per 3 mesi,/);
+        expect(widget.find('Popup').text()).toMatch(/TAN da 5,50% a 11,50% - TAEG da 7,50% a 14,50%/);
+        expect(widget.find('Popup').text()).toMatch(/Spesa complessiva da 1.350,00€ a 1.400,00€/);
     });
 });
 
