@@ -7,7 +7,7 @@ soisyWidgetInit();
 
 function soisyWidgetInit() {
     let currentIteration = 0;
-    const maxIterations = 50;
+    const maxIterations = 100;
     const tick = 100;
 
     const soisyInterval = setInterval(() => {
@@ -24,6 +24,10 @@ function soisyWidgetInit() {
 function renderSoisyWidgets() {
     const soisyLoanQuotesWidgets = document.getElementsByTagName('soisy-loan-quote');
     for (let i = 0; i < soisyLoanQuotesWidgets.length; i++) {
+        if (soisyLoanQuotesWidgets[i].innerHTML !== '') {
+            return;
+        }
+
         const widgetConfig = {
             shopId: soisyLoanQuotesWidgets[i].attributes['shop-id'] ? soisyLoanQuotesWidgets[i].attributes['shop-id'].value : null,
             amount: soisyLoanQuotesWidgets[i].attributes['amount'] ? soisyLoanQuotesWidgets[i].attributes['amount'].value : null,
