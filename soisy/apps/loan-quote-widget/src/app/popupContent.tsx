@@ -56,27 +56,41 @@ const Price = styled.span`
     }
 `;
 
-const MainUl = styled.ul`
+const MainList = styled.ul`
     &&& {
-        list-style: decimal;
+        list-style-type: decimal;
         margin: 15px 0 15px 15px;
+        padding: 0;
+        border: none;
+    }
+`;
 
-        li {
-            font-size: 15px;
-        }
+const SubList = styled.ul`
+    &&& {
+        list-style-type: disc;
+        margin: 0 0 0 20px;
+        padding: 0;
+        border: none;
+    }
+`;
 
-        & > li {
-            margin: 15px 0 5px;
-        }
+const MainListItem = styled.li`
+    &&& {
+        margin: 15px 0 5px;
+        font-size: 15px;
+        line-height: 1;
+        padding: 0;
+        border: none;
+    }
+`;
 
-        ul {
-            margin: 0 0 0 20px;
-            list-style: disc;
-
-            & > li {
-                margin: 5px 0;
-            }
-        }
+const SubListItem = styled.li`
+    &&& {
+        margin: 5px 0;
+        font-size: 15px;
+        line-height: 1;
+        padding: 0;
+        border: none;
     }
 `;
 
@@ -113,25 +127,27 @@ const PopupContent = (props) => {
                         )
                 }
             </SmallText>
-            <MainUl>
-                <li><LiText><strong>Metti in carrello i tuoi prodotti e scegli</strong></LiText> <PopupLogo /> <LiText>al <strong>checkout</strong></LiText></li>
-                <li>
+            <MainList>
+                <MainListItem>
+                    <LiText><strong>Metti in carrello i tuoi prodotti e scegli</strong></LiText> <PopupLogo /> <LiText>al <strong>checkout</strong></LiText>
+                </MainListItem>
+                <MainListItem>
                     <LiText><strong>Ottieni l'esito in 3 minuti e tieni a portata di mano:</strong></LiText>
-                    <ul>
-                        <li><LiText>IBAN su cui addebitare i pagamenti mensili</LiText></li>
-                        <li><LiText>documento di identità</LiText></li>
-                        <li><LiText>tessera sanitaria (la chiediamo solo in alcuni casi)</LiText></li>
-                    </ul>
-                </li>
-                <li>
+                    <SubList>
+                        <SubListItem><LiText>IBAN su cui addebitare i pagamenti mensili</LiText></SubListItem>
+                        <SubListItem><LiText>documento di identità</LiText></SubListItem>
+                        <SubListItem><LiText>tessera sanitaria (la chiediamo solo in alcuni casi)</LiText></SubListItem>
+                    </SubList>
+                </MainListItem>
+                <MainListItem>
                     <LiText>
                         <strong>
                             Goditi il tuo acquisto 🛒: <br/>
                             inizierai a pagarlo dopo 30 giorni!
                         </strong>
                     </LiText>
-                </li>
-            </MainUl>
+                </MainListItem>
+            </MainList>
 
             <Separator />
 
