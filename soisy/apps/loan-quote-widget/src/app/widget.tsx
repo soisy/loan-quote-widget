@@ -17,6 +17,7 @@ const WidgetWrapper = styled.span`
         line-height: 1;
         font-weight: 400;
         color: #565656;
+        text-transform: none;
     }
 
     && {
