@@ -56,26 +56,28 @@ const Price = styled.span`
     }
 `;
 
-const MainList = styled.ul`
+const MainList = styled.span`
     &&& {
-        list-style-type: decimal;
+        display: block;
         margin: 15px 0 15px 15px;
         padding: 0;
         border: none;
     }
 `;
 
-const SubList = styled.ul`
+const SubList = styled.span`
     &&& {
-        list-style-type: disc;
+        display: block;
         margin: 0 0 0 20px;
         padding: 0;
         border: none;
     }
 `;
 
-const MainListItem = styled.li`
+const MainListItem = styled.span`
     &&& {
+        display: list-item;
+        list-style-type: decimal;
         margin: 15px 0 5px;
         font-size: 15px;
         line-height: 1;
@@ -86,6 +88,8 @@ const MainListItem = styled.li`
 
 const SubListItem = styled.li`
     &&& {
+        display: list-item;
+        list-style-type: disc;
         margin: 5px 0;
         font-size: 15px;
         line-height: 1;
