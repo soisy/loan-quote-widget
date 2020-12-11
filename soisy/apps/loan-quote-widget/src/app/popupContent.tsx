@@ -62,6 +62,7 @@ const MainList = styled.span`
         margin: 15px 0 15px 15px;
         padding: 0;
         border: none;
+        counter-reset: soisy;
     }
 `;
 
@@ -77,16 +78,25 @@ const SubList = styled.span`
 const MainListItem = styled.span`
     &&& {
         display: list-item;
-        list-style-type: decimal;
+        list-style-type: none;
         margin: 15px 0 5px;
-        font-size: 15px;
-        line-height: 1;
         padding: 0;
         border: none;
+        position: relative;
+
+        &::before {
+            counter-increment: soisy;
+            content: counter(soisy) ". ";
+            font-size: 15px;
+            line-height: 1;
+            position: absolute;
+            left: -15px;
+            top: 0;
+        }
     }
 `;
 
-const SubListItem = styled.li`
+const SubListItem = styled.span`
     &&& {
         display: list-item;
         list-style-type: disc;
