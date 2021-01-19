@@ -15,9 +15,27 @@ class Soisy {
         soisy.watchForAttributesMutations();
     }
 
-    renderWidget(element): void {
-        const config = this.getWidgetConfigFromAttributes(element);
+    createWidget(element): void {
+        if (!!element.shadowRoot) {
+            return;
+        }
 
+        element.attachShadow({ mode: 'open' });
+        const config = this.getWidgetConfigFromAttributes(element);
+        this.renderWidget(element.shadowRoot, config);
+    }
+
+    destroyWidget(element) {
+        ReactDOM.unmountComponentAtNode(element);
+        element.innerHTML = '';
+    }
+
+    reloadWidget(element) {
+        this.destroyWidget(element.shadowRoot);
+        this.renderWidget(element.shadowRoot, this.getWidgetConfigFromAttributes(element));
+    }
+
+    renderWidget(element, config): void {
         ReactDOM.render(
             <React.StrictMode>
                 <SoisyLoanQuoteWidget
@@ -48,8 +66,7 @@ class Soisy {
             observers.push(new MutationObserver((mutations) => {
                 mutations.forEach((mutation) => {
                     if (mutation.type === "attributes") {
-                        ReactDOM.unmountComponentAtNode(widgets[i]);
-                        self.renderWidget(widgets[i]);
+                        self.reloadWidget(widgets[i]);
                     }
                 });
             }));
@@ -67,12 +84,12 @@ class Soisy {
         let self = this;
         const soisyDomMutationObserver = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
-                if (mutation.type === "childList") {
+                if (this.hasNonSoisyNodeBeenMutated(mutation)) {
                     // @ts-ignore
                     const loanQuoteWidgets = mutation.target.querySelectorAll('soisy-loan-quote');
 
                     for (let i = 0; i < loanQuoteWidgets.length; i++) {
-                        self.renderWidget(loanQuoteWidgets[i]);
+                        self.createWidget(loanQuoteWidgets[i]);
                     }
                 }
             });
@@ -82,6 +99,10 @@ class Soisy {
             subtree: true,
             childList: true
         });
+    }
+
+    hasNonSoisyNodeBeenMutated(mutation) {
+        return mutation.type === "childList" && mutation.target.tagName.toLowerCase() !== 'soisy-loan-quote';
     }
 }
 
