@@ -57,5 +57,13 @@
             instalments="20"
             zero-interest-rate="0"
         >Soisy</soisy-loan-quote>
+
+        <h2>Simulazione aggiunta dinamicamente</h2>
+        <div id="addhere">Entro 5s aggiungo tag</div>
+        <script>
+            setTimeout(function () {
+                document.getElementById('addhere').innerHTML = "<soisy-loan-quote shop-id=partnershop amount=1234 instalments=20 zero-interest-rate=0></soisy-loan-quote>";
+            }, 5000);
+        </script>
     </body>
 </html>

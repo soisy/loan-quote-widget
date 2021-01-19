@@ -11,28 +11,8 @@ class Soisy {
     static initWidgets(): void {
         const soisy = new Soisy();
 
-        let currentIteration = 0;
-        const maxIterations = 30;
-        const tick = 100;
-
-        const soisyInterval = setInterval(() => {
-            if (currentIteration >= maxIterations) {
-                clearInterval(soisyInterval);
-                soisy.watchForAttributesMutations();
-                return;
-            }
-
-            soisy.renderAllWidgets();
-            currentIteration++;
-        }, tick);
-
-    }
-
-    renderAllWidgets(): void {
-        const soisyLoanQuotesWidgets = document.getElementsByTagName('soisy-loan-quote');
-        for (let i = 0; i < soisyLoanQuotesWidgets.length; i++) {
-            this.renderWidget(soisyLoanQuotesWidgets[i]);
-        }
+        soisy.watchForWidgets();
+        soisy.watchForAttributesMutations();
     }
 
     renderWidget(element): void {
@@ -65,9 +45,9 @@ class Soisy {
         let self = this, observers = [];
 
         for (let i = 0; i < widgets.length; i++) {
-            observers.push(new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    if (mutation.type == "attributes") {
+            observers.push(new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === "attributes") {
                         ReactDOM.unmountComponentAtNode(widgets[i]);
                         self.renderWidget(widgets[i]);
                     }
@@ -81,6 +61,27 @@ class Soisy {
                 attributes: true
             });
         }
+    }
+
+    watchForWidgets() {
+        let self = this;
+        const soisyDomMutationObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === "childList") {
+                    // @ts-ignore
+                    const loanQuoteWidgets = mutation.target.querySelectorAll('soisy-loan-quote');
+
+                    for (let i = 0; i < loanQuoteWidgets.length; i++) {
+                        self.renderWidget(loanQuoteWidgets[i]);
+                    }
+                }
+            });
+        });
+
+        soisyDomMutationObserver.observe(document.getElementsByTagName('body')[0], {
+            subtree: true,
+            childList: true
+        });
     }
 }
 
