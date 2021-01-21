@@ -1,26 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const Text = styled.span`
-    &&&, &&& b, &&& strong, &&& span {
-        font-size: 15px;
-        line-height: 20px;
-    }
-
-    &&& {
-        display: inline-block;
-        margin-right: 5px;
-    }
-`;
-
-const Price = styled.span`
-    &&& {
-        font-weight: 600;
-        font-size: 18px;
-        line-height: 18px;
-        color: #44c774;
-    }
-`;
+import {Text, Price} from '../assets/styled-components/sentence';
 
 const QuoteSentence = (props) => {
     return (
