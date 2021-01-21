@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactDOMServer from 'react-dom/server';
+import {ServerStyleSheet} from "styled-components";
 
-import SoisyLoanQuoteWidget from './app/widget';
+import SoisyLoanQuote from './app/soisyloanquote';
+import Widget from './app/widget';
 
 class Soisy {
     private constructor() {
@@ -36,15 +39,27 @@ class Soisy {
     }
 
     renderWidget(element, config): void {
+        const sheet = new ServerStyleSheet();
+
+        ReactDOMServer.renderToString(sheet.collectStyles(
+            <Widget
+                amount={config.amount}
+                instalments={config.instalments}
+                zeroInterestRate={config.zeroInterestRate}
+                min="" max="" aprInfo=""
+            />
+        ));
+
         ReactDOM.render(
-            <React.StrictMode>
-                <SoisyLoanQuoteWidget
+            <>
+                <div dangerouslySetInnerHTML={{__html: sheet.getStyleTags()}}></div>
+                <SoisyLoanQuote
                     shopId={config.shopId}
                     amount={config.amount}
                     instalments={config.instalments}
                     zeroInterestRate={config.zeroInterestRate}
                 />
-            </React.StrictMode>,
+            </>,
             element
         );
     }

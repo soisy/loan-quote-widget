@@ -124,14 +124,19 @@ class Popup extends React.Component<any, any> {
 
         if (this.state.isPopupOpen) {
             return (
-                <span>
+                <>
                     {trigger}
                     {popup}
-                </span>
+                </>
             );
         }
 
-        return trigger;
+        return (
+            <>
+                {trigger}
+                <span style={{display: "none"}}>{popup}</span>
+            </>
+        );
     }
 
     handleClick(e) {

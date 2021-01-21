@@ -8,7 +8,6 @@ describe('Popup', () => {
     it('Renders clickable info sign if popup is not open', () => {
         const popup = shallow(<Popup />);
         assertInfoIconIsVisible(popup);
-        assertPopupIsNotRendered(popup);
     });
 
     it('Renders popup after info icon is clicked', () => {
@@ -23,10 +22,6 @@ describe('Popup', () => {
 
 function assertInfoIconIsVisible(popup) {
     expect(popup.contains([<img src="info.svg" alt="info" />])).toBeTruthy();
-}
-
-function assertPopupIsNotRendered(popup) {
-    expect(popup.find('popup__PopupBg').length).toBe(0);
 }
 
 function assertAllPopupComponentsAreVisible(popup) {
