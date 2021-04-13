@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     gulpConcat = require('gulp-concat'),
-    gulpRename = require('gulp-rename');
+    gulpRename = require('gulp-rename'),
+    stripComments = require('gulp-strip-comments');
 function bundleup() {
     const srcPath = './dist/apps/loan-quote-widget';
     const concatBuildFiles = [
@@ -11,6 +12,7 @@ function bundleup() {
     ];
 
     return gulp.src(concatBuildFiles, {base: './'})
+        .pipe(stripComments())
         .pipe(gulpConcat('concat.js'))
         .pipe(gulp.dest('dist'))
         .pipe(gulpRename('loan-quote-widget.js'))
