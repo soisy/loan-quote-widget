@@ -3,6 +3,11 @@ import styled from "styled-components";
 export const StyledContent = styled.div`
     padding: 40px;
 
+    font-family: Helvetica, sans-serif;
+    line-height: 1;
+    font-weight: 400;
+    color: #565656;
+
     @media screen (min-width: 720px) {
         padding: 40px 40px 0 40px;
     }
