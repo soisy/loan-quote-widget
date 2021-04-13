@@ -1,12 +1,16 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import InfoIcon from "../assets/info.svg";
 
 import {PopupBg, PopupTrigger, PopupWrapper, ClosingMark, ClosingButton} from '../assets/styled-components/popup';
 import PopupContent from "./popupContent";
 
 class Popup extends React.Component<any, any> {
+    popupElement: any;
+
     constructor(props) {
         super(props);
+        this.popupElement = document.createElement('div');
 
         this.state = {
             isPopupOpen: false
@@ -16,9 +20,15 @@ class Popup extends React.Component<any, any> {
         this.handleClickAndTogglePopup = this.handleClickAndTogglePopup.bind(this);
     }
 
-    render() {
-        const trigger = (
-            <PopupTrigger onClick={this.handleClickAndTogglePopup}><img src={InfoIcon} alt="info"/></PopupTrigger>);
+    componentDidMount() {
+        document.body.appendChild(this.popupElement);
+    }
+
+    componentWillUnmount() {
+        document.body.removeChild(this.popupElement);
+    }
+
+    componentDidUpdate() {
         const popup = (
             <PopupBg onClick={this.handleClickAndTogglePopup}>
                 <PopupWrapper onClick={this.handleClick}>
@@ -35,19 +45,15 @@ class Popup extends React.Component<any, any> {
         );
 
         if (this.state.isPopupOpen) {
-            return (
-                <>
-                    {trigger}
-                    {popup}
-                </>
-            );
+            ReactDOM.render(popup, this.popupElement);
+        } else {
+            ReactDOM.render(<span style={{display: "none"}}>{popup}</span>, this.popupElement);
         }
+    }
 
+    render() {
         return (
-            <>
-                {trigger}
-                <span style={{display: "none"}}>{popup}</span>
-            </>
+            <PopupTrigger onClick={this.handleClickAndTogglePopup}><img src={InfoIcon} alt="info"/></PopupTrigger>
         );
     }
 
