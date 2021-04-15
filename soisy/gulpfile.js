@@ -1,21 +1,9 @@
 var gulp = require('gulp'),
-    gulpConcat = require('gulp-concat'),
-    gulpRename = require('gulp-rename'),
-    stripComments = require('gulp-strip-comments');
+    gulpConcat = require('gulp-concat');
 function bundleup() {
-    const srcPath = './dist/apps/loan-quote-widget';
-    const concatBuildFiles = [
-        srcPath + '/runtime.js',
-        srcPath + '/polyfills.esm.js',
-        srcPath + '/vendor.esm.js',
-        srcPath + '/main.esm.js'
-    ];
 
-    return gulp.src(concatBuildFiles, {base: './'})
-        .pipe(stripComments())
-        .pipe(gulpConcat('concat.js'))
-        .pipe(gulp.dest('dist'))
-        .pipe(gulpRename('loan-quote-widget.js'))
+    return gulp.src(['./dist/apps/loan-quote-widget/runtime.*.js', './dist/apps/loan-quote-widget/main.*.js'], {base: './'})
+        .pipe(gulpConcat('loan-quote-widget.js'))
         .pipe(gulp.dest('dist/bundle'));
 }
 

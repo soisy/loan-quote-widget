@@ -13,7 +13,6 @@
             "outputPath": "dist/apps/loan-quote-widget",
             "index": "apps/loan-quote-widget/src/index.html",
             "main": "apps/loan-quote-widget/src/main.tsx",
-            "polyfills": "apps/loan-quote-widget/src/polyfills.ts",
             "tsConfig": "apps/loan-quote-widget/tsconfig.app.json",
             "assets": [
               "apps/loan-quote-widget/src/favicon.ico",
@@ -36,7 +35,7 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "extractLicenses": true,
+              "extractLicenses": false,
               "vendorChunk": false,
               "budgets": [
                 {
