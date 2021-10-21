@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -e
+
+cp -ru /node_modules ./node_modules
+npm run "$@"
