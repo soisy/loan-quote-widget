@@ -8,8 +8,7 @@ jobs:
       - name: Build Containers & Run Tests
         run: |
           cd .docker
-          docker-compose up -d
-          docker-compose run web nx test
+          ./up
           
   deploy:
     runs-on: ubuntu-latest
