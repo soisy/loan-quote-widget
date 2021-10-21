@@ -25,8 +25,7 @@ To install the widget's source locally please follow these instructions:
   - Git clone this repo to your local development environment
   - `cd` to the root of the project
   - Run `$ cd .docker` to go to the sub-directory where all the Docker's config files are.
-  - Run `$ docker-compose up -d`. This will take several minutes the first time, so don't be afraid to wait a little 😜
-  - After your container is up and running you can enter it by running `$ docker-compose exec web sh`.
+  - Run `$ ./up`. This will take several minutes the first time, so don't be afraid to wait a little 😜
 
 ## Navigate in your browser
 
