@@ -6,12 +6,12 @@ configure({ adapter: new Adapter() });
 
 describe('Popup', () => {
     it('Renders clickable info sign if popup is not open', () => {
-        const popup = shallow(<Popup />);
+        const popup = shallow(<Popup instalments="12" zeroInterestRate="true" min="5" max="20" />);
         assertInfoIconIsVisible(popup);
     });
 
     it('Renders popup after info icon is clicked', () => {
-        const popup = shallow(<Popup />);
+        const popup = shallow(<Popup instalments="12" zeroInterestRate="true" min="5" max="20" />);
 
         popup.setState({isPopupOpen: true}, () => {
             assertInfoIconIsVisible(popup);
