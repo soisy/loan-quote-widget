@@ -9,3 +9,4 @@ services:
         - ..:/loan-quote-widget
     ports:
         - "4200:4200"
+    user: node
