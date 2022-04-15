@@ -56,7 +56,7 @@ describe('Popup content', () => {
                 max={max}
             />
         );
-        expect(content.text()).toMatch(/Da 66,10 € per 12 mesi senza interessi,/);
+        expect(content.text()).toMatch(/Da 66,10 € per 12 mesi a tasso zero,/);
         expect(content.text()).toMatch(/TAEG 0,00%/);
         expect(content.text()).toMatch(/Spesa complessiva 1.400,00€/);
     });
