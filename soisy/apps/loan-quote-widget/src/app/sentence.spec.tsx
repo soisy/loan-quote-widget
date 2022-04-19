@@ -12,7 +12,7 @@ describe('Quote Sentence', () => {
 
     it('shows that zeroInterestRate is active', () => {
         const sentence = shallow(<QuoteSentence amount="12,34" instalments={6} zeroInterestRate={true} />);
-        expect(sentence.text()).toBe('da 12,34 € per 6 mesi senza interessi con');
+        expect(sentence.text()).toBe('da 12,34 € per 6 mesi a tasso zero con');
     });
 
     it('shows currency numbers formatted in it-IT', () => {

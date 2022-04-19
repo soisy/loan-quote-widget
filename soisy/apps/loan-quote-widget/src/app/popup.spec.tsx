@@ -6,13 +6,19 @@ configure({ adapter: new Adapter() });
 
 describe('Popup', () => {
     it('Renders clickable info sign if popup is not open', () => {
-        const popup = shallow(<Popup />);
+        const amount = {
+            amount: 100
+        }
+        const popup = shallow(<Popup min={amount} max={amount} />);
         assertInfoIconIsVisible(popup);
     });
 
     it('Renders popup after info icon is clicked', () => {
-        const popup = shallow(<Popup />);
-
+        const amount = {
+           amount: 100
+        }
+        const popup = shallow(<Popup min={amount} max={amount} />);
+        // console.log(popup.find('popup__PopupTrigger').simulate('click'));
         popup.setState({isPopupOpen: true}, () => {
             assertInfoIconIsVisible(popup);
             assertAllPopupComponentsAreVisible(popup);

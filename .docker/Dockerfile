@@ -1,4 +1,4 @@
-FROM node:lts as node
+FROM node:lts-gallium as node
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG en_US.UTF-8
@@ -45,7 +45,7 @@ ENV NPM_CONFIG_PREFIX=/soisy/.npm-global
 # optionally if you want to run npm global bin without specifying path
 ENV PATH=$PATH:/soisy/.npm-global/bin:/soisy/bin
 
-RUN npm i -g --unsafe-perm nx full-icu gulp-cli
+RUN npm i -g --unsafe-perm nx@13.10.3 full-icu gulp-cli
 ENV NODE_ICU_DATA="/soisy/.npm-global/lib/node_modules/full-icu"
 
 COPY --chown=soisy:soisy ./.docker/build /soisy/bin/build

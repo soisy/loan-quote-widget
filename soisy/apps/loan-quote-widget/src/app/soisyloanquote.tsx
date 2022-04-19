@@ -112,11 +112,11 @@ class SoisyLoanQuote extends React.Component<any, any> {
                 {
                     this.state.zeroInterestRate ? (
                         <span>
-                            TAEG {this.state.loanQuote.max.apr}%
+                            {' '}TAEG {this.state.loanQuote.max.apr}%
                         </span>
                     ) : (
                         <span>
-                            TAEG max {this.state.loanQuote.max.apr}%, spesa complessiva max {this.state.loanQuote.max.totalRepaid}€
+                            {' '}TAEG max {this.state.loanQuote.max.apr}%, spesa complessiva max {this.state.loanQuote.max.totalRepaid}€
                         </span>
                     )
                 }
