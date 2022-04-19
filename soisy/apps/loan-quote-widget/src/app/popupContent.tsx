@@ -8,7 +8,7 @@ const PopupContent = (props) => {
         <StyledContent>
             <Caption>
                 Da <Price>{props.min.amount} €</Price> per <strong>{props.instalments} mesi</strong>
-                {props.zeroInterestRate ? (<Highlight> senza interessi</Highlight>) : ''},
+                {props.zeroInterestRate ? (<Highlight> a tasso zero</Highlight>) : ''},
             </Caption>
             <br/>
             <SmallText>

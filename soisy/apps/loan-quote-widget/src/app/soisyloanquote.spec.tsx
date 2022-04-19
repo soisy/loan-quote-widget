@@ -161,8 +161,8 @@ describe('Soisy Loan Quote', () => {
         );
 
         widget.update();
-        expect(widget.text()).toMatch(/da 66,00 € per 12 mesi senza interessi con/);
-        expect(widget.text()).toMatch(/Da 66,00 € per 12 mesi senza interessi,/);
+        expect(widget.text()).toMatch(/da 66,00 € per 12 mesi a tasso zero con/);
+        expect(widget.text()).toMatch(/Da 66,00 € per 12 mesi a tasso zero,/);
         expect(widget.text()).toMatch(/TAEG 0,00%/);
         expect(widget.text()).toMatch(/Spesa complessiva 1.200,00€/);
     });
