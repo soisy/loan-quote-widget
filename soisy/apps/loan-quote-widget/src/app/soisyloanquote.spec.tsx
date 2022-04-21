@@ -1,7 +1,7 @@
 import React from 'react';
 import SoisyLoanQuote from './soisyloanquote';
 import { configure, shallow, mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 configure({ adapter: new Adapter() });
 
 describe('Soisy Loan Quote', () => {
