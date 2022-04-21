@@ -43,3 +43,19 @@ $ nx test
 inside your docker container.
 
 Refer to NX documentation or run `nx test --help` if you need more info.
+
+## Updating NX
+
+In case you need to update nx to a different major version chances are that you will need to upgrade your workspace as well.
+NX provides you a migration feature, but migrating the workspace could not be an easy task.
+
+It is best to migrate one major version at a time.
+Here is the doc about migrations https://nx.dev/cli/migrate
+
+To migrate the workspace you can run:
+
+`nx migrate 11.0.0.0 // use desired version here
+npm i 
+nx migrate --run-migrations=migrations.json
+`
+for every major version you want to migrate to.
