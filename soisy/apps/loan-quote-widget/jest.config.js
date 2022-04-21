@@ -1,6 +1,5 @@
 module.exports = {
-  name: 'loan-quote-widget',
-  preset: '../../jest.config.js',
+  preset: '../../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
     '^.+\\.[tj]sx?$': [
@@ -10,4 +9,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/apps/loan-quote-widget',
+  displayName: 'loan-quote-widget',
 };

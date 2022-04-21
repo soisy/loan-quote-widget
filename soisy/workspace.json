@@ -1,4 +1,4 @@
-    {
+{
   "version": 1,
   "projects": {
     "loan-quote-widget": {
@@ -45,7 +45,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@nrwl/web:dev-server",
@@ -66,7 +69,10 @@
               "apps/loan-quote-widget/tsconfig.app.json",
               "apps/loan-quote-widget/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/loan-quote-widget/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/loan-quote-widget/**/*"
+            ]
           }
         },
         "test": {
@@ -74,7 +80,10 @@
           "options": {
             "jestConfig": "apps/loan-quote-widget/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/loan-quote-widget"
+          ]
         }
       }
     },
@@ -100,7 +109,9 @@
           "builder": "@nrwl/linter:lint",
           "options": {
             "linter": "eslint",
-            "tsConfig": ["apps/loan-quote-widget-e2e/tsconfig.e2e.json"],
+            "tsConfig": [
+              "apps/loan-quote-widget-e2e/tsconfig.e2e.json"
+            ],
             "exclude": [
               "**/node_modules/**",
               "!apps/loan-quote-widget-e2e/**/*"
@@ -109,25 +120,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/react"
-  },
-  "schematics": {
-    "@nrwl/react": {
-      "application": {
-        "style": "styled-components",
-        "linter": "eslint",
-        "babel": true
-      },
-      "component": {
-        "style": "styled-components"
-      },
-      "library": {
-        "style": "styled-components",
-        "linter": "eslint"
-      }
-    }
-  },
-  "defaultProject": "loan-quote-widget"
+  }
 }
