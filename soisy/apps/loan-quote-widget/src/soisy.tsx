@@ -29,6 +29,9 @@ class Soisy {
     }
 
     destroyWidget(element) {
+        if(!element) {
+            return;
+        }
         ReactDOM.unmountComponentAtNode(element);
         element.innerHTML = '';
     }
@@ -39,6 +42,9 @@ class Soisy {
     }
 
     renderWidget(element, config): void {
+        if(!element) {
+            return;
+        }
         const sheet = new ServerStyleSheet();
 
         ReactDOMServer.renderToString(sheet.collectStyles(
