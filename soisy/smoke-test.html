@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>SoisyLoanQuote</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+</head>
+    <body>
+        <h2>€ 1.234,00 Simulazione Tasso Standard</h2>
+        <soisy-loan-quote
+            shop-id="soisytests"
+            amount="1234"
+            instalments="20"
+            zero-interest-rate="0"
+        ></soisy-loan-quote>
+        <br><br><br>
+        <h2>€ 1.234,00 Simulazione Tasso ZERO</h2>
+        <soisy-loan-quote
+            shop-id="soisytests"
+            amount="1234"
+            instalments="20"
+            zero-interest-rate="1"
+        ></soisy-loan-quote>
+
+        <h2>€ 1.234,00 Simulazione Tasso ZERO — rate widget superiori al masimo</h2>
+        <soisy-loan-quote
+            shop-id="soisytests"
+            amount="1234"
+            instalments="55"
+            zero-interest-rate="1"
+        ></soisy-loan-quote>
+
+        <h2>Simulazione con tag non-vuoto</h2>
+        <soisy-loan-quote
+            shop-id="soisytests"
+            amount="1234"
+            instalments="20"
+            zero-interest-rate="0"
+        >Soisy</soisy-loan-quote>
+
+        <h2>Simulazione aggiunta dinamicamente</h2>
+        <div id="addhere">Entro 5s aggiungo tag</div>
+        <script>
+            setTimeout(function () {
+                document.getElementById('addhere').innerHTML = "<soisy-loan-quote shop-id=soisytests amount=1234 instalments=20 zero-interest-rate=0></soisy-loan-quote>";
+            }, 5000);
+        </script>
+
+        <h2>Simulazione modificata dinamicamente ogni 5s</h2>
+        <div id="edithere"><soisy-loan-quote
+            shop-id="soisytests"
+            amount="1234"
+            instalments="20"
+            zero-interest-rate="0"
+        >Modifica</soisy-loan-quote></div>
+        <script>
+            setInterval(function () {
+                document.getElementById('edithere').querySelector('soisy-loan-quote').setAttribute('instalments', Math.floor(Math.random() * 60) + 3);
+            }, 5000);
+        </script>
+        <script src="./dist/bundle/loan-quote-widget.js" defer async></script>
+    </body>
+</html>

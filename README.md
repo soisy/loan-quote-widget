@@ -44,6 +44,18 @@ inside your docker container.
 
 Refer to NX documentation or run `nx test --help` if you need more info.
 
+### Smoke tests
+
+Our test suite is not 100% accurate and some smoke test should be performed before
+releasing to prod. Right now there is no automated smoke test, but you can use smoke-test.html web page
+to perform some manual smoke testing.
+
+You will need to: 
+1. build the project using prod setup `docker-compose run web npm run build:bundle`
+2. open `soisy/smoke-test.html` page on your browser
+
+The page will call production api using soisytests as a test shop id.
+
 ## Updating NX
 
 In case you need to update nx to a different major version chances are that you will need to upgrade your workspace as well.
