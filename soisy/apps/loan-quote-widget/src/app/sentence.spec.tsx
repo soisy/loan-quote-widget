@@ -17,7 +17,7 @@ describe('Quote Sentence', () => {
 
     it('shows currency numbers formatted in it-IT', () => {
         const doubleZero = shallow(<QuoteSentence amount="66,00" instalments={6} zeroInterestRate={false} />);
-        expect(doubleZero.text()).toBe('da 66,00 € per 6 mesi con');
+        expect(doubleZero.text()).toBe('da 44,00 € per 6 mesi con');
 
         const trailingZero = shallow(<QuoteSentence amount="66,10"instalments={6} zeroInterestRate={false} />);
         expect(trailingZero.text()).toBe('da 66,10 € per 6 mesi con');
