@@ -7,7 +7,7 @@ const PopupContent = (props) => {
     return (
         <StyledContent>
             <Caption>
-                Esempio da <Price>{props.min.amount} €</Price> per <strong>{props.instalments} mesi</strong>
+                Es. Rata da <Price>{props.min.amount} €</Price> per <strong>{props.instalments} mesi</strong>
                 {props.zeroInterestRate ? (<Highlight> a tasso zero</Highlight>) : ''},
             </Caption>
             <br/>

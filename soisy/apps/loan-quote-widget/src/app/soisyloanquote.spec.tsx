@@ -109,7 +109,7 @@ describe('Soisy Loan Quote', () => {
         );
 
         widget.update();
-        expect(widget.text()).toMatch(/Esempio da 66,00 € per 12 mesi con TAEG max 14,50%, spesa complessiva max 1.400,00€/);
+        expect(widget.text()).toMatch(/Es. Rata da 66,00 € per 12 mesi con TAEG max 14,50%, spesa complessiva max 1.400,00€/);
     });
 
     it('outputs complete loan quote with zero interest rate', async () => {
@@ -158,7 +158,7 @@ describe('Soisy Loan Quote', () => {
         );
 
         widget.update();
-        expect(widget.text()).toMatch(/Esempio da 66,00 € per 12 mesi a tasso zero con TAEG 0,00%/);
+        expect(widget.text()).toMatch(/Es. Rata da 66,00 € per 12 mesi a tasso zero con TAEG 0,00%/);
     });
 
     it('outputs complete loan quote if widget instalments are higher than shop\'s', async () => {
@@ -207,8 +207,8 @@ describe('Soisy Loan Quote', () => {
         );
 
         widget.update();
-        expect(widget.text()).toMatch(/Esempio da 66,00 € per 3 mesi con/);
-        expect(widget.text()).toMatch(/Esempio da 66,00 € per 3 mesi con TAEG max 14,50%, spesa complessiva max 1.400,00€/);
+        expect(widget.text()).toMatch(/Es. Rata da 66,00 € per 3 mesi con/);
+        expect(widget.text()).toMatch(/Es. Rata da 66,00 € per 3 mesi con TAEG max 14,50%, spesa complessiva max 1.400,00€/);
     });
 });
 
