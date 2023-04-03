@@ -83,7 +83,8 @@ class SoisyLoanQuote extends React.Component<any, any> {
 
 
     async getLoanQuote(amount: number, instalmentsNumber: number, zeroInterestRate: boolean) {
-        return fetch(LoanQuoteWidgetConfig.API_URL + '/shops/' + this.props.shopId + '/loan-quotes?amount='+amount+'&instalments='+instalmentsNumber+'&zeroInterestRate='+zeroInterestRate)
+        return fetch(LoanQuoteWidgetConfig.API_URL + '/shops/' + this.props.shopId + '/loan-quotes?amount='+amount
+                     +'&instalments='+instalmentsNumber+'&zeroInterestRate='+zeroInterestRate+'&widget=true')
             .then(res => res.json())
             .then(quote => {
                 return quote;
